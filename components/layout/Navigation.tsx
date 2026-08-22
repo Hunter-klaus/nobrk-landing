@@ -41,7 +41,6 @@ export default function Navigation() {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 md:h-20 flex items-center justify-between">
-          {/* Logo */}
           <Link
             href="/"
             className="text-white font-black text-sm tracking-[0.35em] uppercase hover:text-amber-500 transition-colors duration-300"
@@ -50,7 +49,6 @@ export default function Navigation() {
             NOBRK
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8" aria-label="메인 내비게이션">
             {navItems.map((item) => (
               <Link
@@ -67,7 +65,6 @@ export default function Navigation() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
           <div className="hidden md:block">
             <Link
               href="/community"
@@ -77,7 +74,6 @@ export default function Navigation() {
             </Link>
           </div>
 
-          {/* Mobile hamburger */}
           <button
             className="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -91,7 +87,6 @@ export default function Navigation() {
         </div>
       </motion.header>
 
-      {/* Mobile fullscreen menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
