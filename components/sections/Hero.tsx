@@ -42,7 +42,7 @@ export default function Hero() {
 
       {/* 메인 콘텐츠 */}
       <div className="relative z-10 flex flex-col items-center text-center px-6">
-        {/* NOBRK — 2pt 작게: clamp(4rem→3.5rem, 18vw→16vw, 14rem→12rem) */}
+        {/* NOBRK — 2pt 작게 */}
         <motion.h1
           className="text-[clamp(3.5rem,16vw,12rem)] font-black text-white tracking-[0.05em] leading-none mb-5 select-none"
           initial={{ opacity: 0, letterSpacing: '0.3em' }}
@@ -52,7 +52,7 @@ export default function Hero() {
           NOBRK
         </motion.h1>
 
-        {/* WE MUST GO ON — 1~2pt 크게: text-sm md:text-base → text-base md:text-lg */}
+        {/* WE MUST GO ON — 오렌지색, 1~2pt 크게 */}
         <motion.p
           className="text-amber-500 text-base md:text-lg tracking-[0.4em] uppercase mb-10 font-light"
           initial={{ opacity: 0 }}
