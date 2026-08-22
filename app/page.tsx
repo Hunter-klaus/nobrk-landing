@@ -1,13 +1,11 @@
-// NOBRK - OUR STORY (Main Landing Page)
-// Sections: Hero, Question, Philosophy, OneMoreStep, Message, FinalSection
-
 import Navigation from '@/components/layout/Navigation'
 import Footer from '@/components/layout/Footer'
 import Hero from '@/components/sections/Hero'
 import Question from '@/components/sections/Question'
-import Philosophy from '@/components/sections/Philosophy'
+import Reversal from '@/components/sections/Reversal'
 import OneMoreStep from '@/components/sections/OneMoreStep'
-import Message from '@/components/sections/Message'
+import Action from '@/components/sections/Action'
+import Philosophy from '@/components/sections/Philosophy'
 import FinalSection from '@/components/sections/FinalSection'
 
 export default function HomePage() {
@@ -15,22 +13,25 @@ export default function HomePage() {
     <>
       <Navigation />
       <main>
-        {/* S01 - HERO */}
+        {/* HERO */}
         <Hero />
 
-        {/* S02 - WHY WE GO ON */}
+        {/* 01. 질문으로 시작 */}
         <Question />
 
-        {/* S03 - NOBRK PHILOSOPHY */}
-        <Philosophy />
+        {/* 02. 여기서 반전 */}
+        <Reversal />
 
-        {/* S04 - ONE MORE STEP */}
+        {/* 03. NOBRK 핵심 */}
         <OneMoreStep />
 
-        {/* S05 - MESSAGE */}
-        <Message />
+        {/* 04. 행동으로 전환 */}
+        <Action />
 
-        {/* S06 - FINAL MESSAGE */}
+        {/* 05. Philosophy */}
+        <Philosophy />
+
+        {/* 06. NOBRK의 결론 */}
         <FinalSection />
       </main>
       <Footer />
