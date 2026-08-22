@@ -1,18 +1,24 @@
 'use client'
 
-// NOBRK - SECTION 12: FINAL
-// Cinematic final section with background image + dark overlay
-
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import ScrollReveal from '@/components/ui/ScrollReveal'
+
+const reasons = [
+  '완벽하지 않아도.',
+  '늦어도.',
+  '두려워도.',
+  '넘어져도.',
+]
 
 export default function FinalSection() {
   return (
     <section
+      id="section-06"
       className="relative min-h-screen flex flex-col items-center justify-center py-32 px-6 bg-[#0A0A0A] overflow-hidden"
-      aria-label="NOBRK 마지막 메시지"
+      aria-label="06. NOBRK 결론"
     >
-      {/* ── 시네마틱 배경 이미지 ── */}
+      {/* 시네마틱 배경 */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
         <Image
           src="/final_bg.jpg"
@@ -22,74 +28,56 @@ export default function FinalSection() {
           className="object-cover object-center"
           sizes="100vw"
         />
-        {/* 다크 그라데이션 오버레이 */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.55) 50%, rgba(10,10,10,0.90) 100%)',
+              'linear-gradient(to bottom, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.60) 50%, rgba(10,10,10,0.95) 100%)',
           }}
         />
       </div>
 
-      {/* 앰비언트 글로우 */}
-      <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-amber-700/[0.03] blur-[100px]" />
-      </div>
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
+        {/* 그래서 오늘도 갑니다 */}
+        <ScrollReveal>
+          <h2 className="text-[clamp(2.5rem,7vw,5rem)] font-black text-white leading-tight mb-12">
+            그래서 오늘도 갑니다.
+          </h2>
+        </ScrollReveal>
 
-      <div className="relative z-10 text-center">
-        {/* NOBRK */}
-        <motion.h2
-          className="text-[clamp(4rem,18vw,14rem)] font-black text-white tracking-[0.05em] leading-none mb-6 select-none"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        >
-          NOBRK
-        </motion.h2>
+        {/* 4가지 조건 */}
+        <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-16">
+          {reasons.map((reason, i) => (
+            <ScrollReveal key={i} delay={0.15 * i}>
+              <span className="text-white/50 text-base md:text-xl font-light tracking-wide px-4 py-2 border border-white/10 rounded-full">
+                {reason}
+              </span>
+            </ScrollReveal>
+          ))}
+        </div>
 
-        {/* 슬로건 */}
-        <motion.p
-          className="text-white/40 text-sm md:text-base tracking-[0.5em] uppercase font-light mb-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+        {/* 다시 일어나 한 걸음 더 */}
+        <ScrollReveal delay={0.6}>
+          <p className="text-white/70 text-lg md:text-2xl font-light mb-8">
+            다시 일어나 한 걸음 더.
+          </p>
+        </ScrollReveal>
+
+        {/* WE MUST GO ON */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.4 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="mt-6 mb-16"
         >
-          WE MUST GO ON.
-        </motion.p>
+          <p className="text-amber-500 text-[clamp(2.5rem,8vw,6rem)] font-black tracking-[0.1em] uppercase leading-none">
+            WE MUST GO ON.
+          </p>
+        </motion.div>
 
         {/* 구분선 */}
-        <motion.div
-          className="w-[1px] h-16 bg-gradient-to-b from-white/20 to-transparent mx-auto mb-12"
-          initial={{ opacity: 0, scaleY: 0 }}
-          whileInView={{ opacity: 1, scaleY: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          aria-hidden="true"
-        />
-
-        {/* 마지막 메시지 */}
-        <motion.p
-          className="text-white/40 text-base md:text-lg font-light tracking-wide mb-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.9 }}
-        >
-          오늘도 여기까지 왔으니까.
-        </motion.p>
-
-        <motion.p
-          className="text-amber-500/70 text-sm md:text-base font-light tracking-[0.2em]"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 1.2 }}
-        >
-          내일, 한 걸음 더.
-        </motion.p>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-white/20 to-transparent mx-auto" aria-hidden="true" />
       </div>
     </section>
   )
