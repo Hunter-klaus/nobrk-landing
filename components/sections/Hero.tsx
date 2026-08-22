@@ -1,8 +1,9 @@
 'use client'
 
-// NOBRK — SECTION 01: HERO
-// 첫 화면: 검은 배경, 브랜드명, 슬로건, CTA
+// NOBRK - SECTION 01: HERO
+// Cinematic full-screen hero with background image + dark overlay
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 export default function Hero() {
@@ -14,22 +15,38 @@ export default function Hero() {
   return (
     <section
       className="relative min-h-screen flex flex-col items-center justify-center bg-[#0A0A0A] overflow-hidden"
-      aria-label="NOBRK 히어로 섹션"
+      aria-label="NOBRK 히어로"
     >
-      {/* 배경 앰비언트 라이트 — 극히 미세한 움직임 */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-      >
-        {/* 중앙 글로우 */}
-        <div className="ambient-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-600/[0.04] blur-[120px]" />
-        {/* 우하단 서브 글로우 */}
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-amber-700/[0.02] blur-[100px]" />
+      {/* ── 시네마틱 배경 이미지 ── */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <Image
+          src="/hero_bg.jpg"
+          alt=""
+          fill
+          priority
+          quality={85}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        {/* 다크 그라데이션 오버레이 — 텍스트 가독성 우선 */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.65) 45%, rgba(10,10,10,0.25) 100%), ' +
+              'linear-gradient(to right, rgba(10,10,10,0.55) 0%, transparent 60%)',
+          }}
+        />
       </div>
 
-      {/* 메인 콘텐츠 */}
+      {/* ── 서브 앰비언트 글로우 (이미지 위에 살짝) ── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
+        <div className="ambient-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-600/[0.03] blur-[120px]" />
+      </div>
+
+      {/* ── 메인 콘텐츠 ── */}
       <div className="relative z-10 flex flex-col items-center text-center px-6">
-        {/* 브랜드명 */}
+        {/* 브랜드 */}
         <motion.h1
           className="text-[clamp(4rem,18vw,14rem)] font-black text-white tracking-[0.05em] leading-none mb-6 select-none"
           initial={{ opacity: 0, letterSpacing: '0.3em' }}
@@ -66,10 +83,10 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.6 }}
-          aria-label="NOBRK 이야기 보기 — 아래로 스크롤"
+          aria-label="NOBRK 이야기 시작 - 아래로 스크롤"
         >
           <span className="text-white/40 text-xs tracking-[0.3em] uppercase group-hover:text-white/70 transition-colors duration-500">
-            NOBRK 이야기 보기
+            NOBRK 이야기 시작
           </span>
           {/* 스크롤 인디케이터 */}
           <motion.div
@@ -80,7 +97,7 @@ export default function Hero() {
         </motion.button>
       </div>
 
-      {/* 하단 좌우 귀퉁이 텍스트 — 브랜드 감성 디테일 */}
+      {/* 하단 양쪽 텍스트 */}
       <motion.div
         className="absolute bottom-8 left-6 md:left-12"
         initial={{ opacity: 0 }}
@@ -88,9 +105,7 @@ export default function Hero() {
         transition={{ duration: 1, delay: 2 }}
         aria-hidden="true"
       >
-        <p className="text-white/15 text-[10px] tracking-[0.3em] uppercase">
-          NO BRAKE
-        </p>
+        <p className="text-white/15 text-[10px] tracking-[0.3em] uppercase">NO BRAKE</p>
       </motion.div>
       <motion.div
         className="absolute bottom-8 right-6 md:right-12"
@@ -99,9 +114,7 @@ export default function Hero() {
         transition={{ duration: 1, delay: 2 }}
         aria-hidden="true"
       >
-        <p className="text-white/15 text-[10px] tracking-[0.3em] uppercase">
-          2026
-        </p>
+        <p className="text-white/15 text-[10px] tracking-[0.3em] uppercase">2026</p>
       </motion.div>
     </section>
   )
