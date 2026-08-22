@@ -30,30 +30,30 @@ export default function ContentPage() {
 
           {/* Header */}
           <div className="mb-16 md:mb-20">
-            <p className="text-amber-500 text-xs tracking-[0.35em] uppercase mb-4 font-bold">
+            <p className="text-white/40 text-xs tracking-[0.35em] uppercase mb-4 font-light">
               NOBRK Content
             </p>
             <h1 className="text-[clamp(2rem,5vw,3.8rem)] font-black text-white leading-[1.2] mb-6 md:whitespace-nowrap">
               오늘, 당신에게 필요한 한 문장
             </h1>
-            <p className="text-white/70 text-base md:text-lg font-light max-w-lg leading-relaxed">
+            <p className="text-white/60 text-base md:text-lg font-light max-w-lg leading-relaxed">
               매일 아침, 다시 움직이게 하는 한 문장.<br />
-              <span className="text-white/40 text-sm">YouTube Shorts · Instagram · Threads</span>
+              <span className="text-white/35 text-sm">YouTube Shorts · Instagram · Threads</span>
             </p>
           </div>
 
-          {/* Category tabs — 고대비 시인성 강화 */}
-          <div className="flex flex-wrap gap-3 mb-12 md:mb-16">
+          {/* Category tabs — 고급스러운 모노크롬 탭 */}
+          <div className="flex flex-wrap gap-2.5 mb-12 md:mb-16">
             {categories.map((cat) => {
               const isActive = activeCategory === cat
               return (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`text-xs tracking-[0.2em] uppercase px-5 py-3 border rounded-sm transition-all duration-200 cursor-pointer font-medium ${
+                  className={`text-xs tracking-[0.2em] uppercase px-5 py-2.5 rounded-sm transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'bg-amber-500 text-black border-amber-500 font-bold shadow-[0_0_20px_rgba(245,158,11,0.25)]'
-                      : 'bg-white/[0.04] border-white/20 text-white/80 hover:border-amber-500/50 hover:text-white hover:bg-white/[0.08]'
+                      ? 'bg-white text-black font-bold shadow-md'
+                      : 'bg-white/[0.03] border border-white/10 text-white/50 hover:text-white hover:border-white/30 font-light'
                   }`}
                 >
                   {cat}
@@ -68,22 +68,22 @@ export default function ContentPage() {
               <a
                 key={i}
                 href={item.href}
-                className="group bg-[#121212] border border-white/10 hover:border-amber-500/50 p-8 md:p-10 flex flex-col justify-between min-h-[260px] rounded-sm transition-all duration-300 hover:bg-[#181818] hover:-translate-y-1 shadow-lg"
+                className="group bg-[#111111] border border-white/[0.08] hover:border-white/30 p-8 md:p-10 flex flex-col justify-between min-h-[260px] rounded-sm transition-all duration-300 hover:bg-[#161616] hover:-translate-y-1 shadow-lg"
               >
                 <div>
-                  <span className="inline-block text-amber-400 text-xs tracking-[0.25em] uppercase font-bold mb-4">
+                  <span className="inline-block text-white/40 text-[11px] tracking-[0.25em] uppercase font-medium mb-4">
                     {item.tag}
                   </span>
-                  <p className="text-white font-black text-2xl md:text-3xl leading-[1.3] whitespace-pre-line group-hover:text-amber-300 transition-colors duration-300">
+                  <p className="text-white font-black text-2xl md:text-3xl leading-[1.3] whitespace-pre-line group-hover:text-white/90 transition-colors duration-300">
                     {item.headline}
                   </p>
                 </div>
-                <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-white/60 text-xs tracking-[0.15em] uppercase font-medium flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" />
+                <div className="mt-8 pt-4 border-t border-white/[0.06] flex items-center justify-between">
+                  <span className="text-white/40 text-xs tracking-[0.15em] uppercase font-light flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/40 inline-block" />
                     {item.channel}
                   </span>
-                  <span className="text-amber-500 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-bold">
+                  <span className="text-white/60 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-light">
                     보러가기 →
                   </span>
                 </div>
@@ -92,11 +92,11 @@ export default function ContentPage() {
           </div>
 
           {/* CTA */}
-          <div className="mt-20 text-center border-t border-white/10 pt-16">
-            <p className="text-white/60 text-sm tracking-[0.3em] uppercase font-light mb-3">
+          <div className="mt-20 text-center border-t border-white/[0.06] pt-16">
+            <p className="text-white/40 text-sm tracking-[0.3em] uppercase font-light mb-3">
               매일 새로운 콘텐츠가 추가됩니다
             </p>
-            <p className="text-amber-500/80 text-xs tracking-widest uppercase font-bold">WE MUST GO ON.</p>
+            <p className="text-white/20 text-xs tracking-widest uppercase font-light">WE MUST GO ON.</p>
           </div>
         </div>
       </main>
