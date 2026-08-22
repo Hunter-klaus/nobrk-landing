@@ -1,0 +1,655 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOBRK — WE MUST GO ON</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,800;1,900&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════════
+       TOKENS
+    ══════════════════════════════════════════ */
+    :root {
+      --black:   #08090b;
+      --charcoal:#111318;
+      --card:    #141820;
+      --orange:  #ff5500;
+      --red:     #c0392b;
+      --white:   #f0f0ec;
+      --muted:   rgba(240,240,236,0.45);
+      --border:  rgba(255,255,255,0.07);
+      --glow:    rgba(255,85,0,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px;
+      background: linear-gradient(to bottom, rgba(8,9,11,0.9) 0%, transparent 100%);
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-style: italic;
+      font-size: 1.5rem; color: #fff; text-decoration: none; letter-spacing: -1px;
+    }
+    .logo em { color: var(--orange); font-style: inherit; }
+    .nav-cta {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--white);
+      text-decoration: none; border-bottom: 1px solid var(--orange); padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .nav-cta:hover { color: var(--orange); }
+
+    /* ══════════════════════════════════════════
+       SECTION 01 — HERO (100vh Cinematic)
+    ══════════════════════════════════════════ */
+    .hero {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 40px 72px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-image: url('hero_bg.jpg');
+      background-size: cover; background-position: center 30%;
+    }
+    /* Cinematic overlay: dark vignette + gradient */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to top,  rgba(8,9,11,0.95) 0%, rgba(8,9,11,0.55) 40%, rgba(8,9,11,0.15) 100%),
+        linear-gradient(to right, rgba(8,9,11,0.6) 0%, transparent 60%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 680px; }
+    .hero-eyebrow {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--orange);
+      margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 28px; height: 1px; background: var(--orange);
+    }
+    .hero-title {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-style: italic;
+      font-size: clamp(4rem, 9vw, 7.5rem); line-height: 0.92; letter-spacing: -3px;
+      color: #fff; margin-bottom: 14px;
+    }
+    .hero-title em { color: var(--orange); font-style: inherit; }
+    .hero-slogan {
+      font-family: 'Space Grotesk', sans-serif; font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+      font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: rgba(255,255,255,0.7);
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(240,240,236,0.6); line-height: 1.7;
+      margin-bottom: 32px; font-weight: 300; word-break: keep-all;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem;
+      letter-spacing: 2px; text-transform: uppercase; color: #fff; text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.3); padding: 14px 30px; border-radius: 2px;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .hero-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--orange); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .hero-cta:hover::before { transform: scaleX(1); }
+    .hero-cta:hover { border-color: var(--orange); }
+    .hero-cta span { position: relative; z-index: 1; }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 28px; right: 40px; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; letter-spacing: 2px;
+      color: rgba(255,255,255,0.3); text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+      animation: scrollpulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollpulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50%       { opacity: 0.8; transform: scaleY(0.6); }
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION 02 — WHY WE GO ON
+    ══════════════════════════════════════════ */
+    .why {
+      padding: 90px 40px;
+      max-width: 860px; margin: 0 auto;
+    }
+    .why-label {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--orange);
+      margin-bottom: 36px;
+    }
+    .why-q {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: clamp(2rem, 4.5vw, 3.2rem); line-height: 1.15; letter-spacing: -1px;
+      margin-bottom: 40px;
+    }
+    .why-lines { display: flex; flex-direction: column; gap: 0; }
+    .why-line {
+      font-size: clamp(1rem, 2vw, 1.15rem); color: var(--muted);
+      padding: 16px 0; border-bottom: 1px solid var(--border);
+      font-weight: 300; letter-spacing: 0.2px; word-break: keep-all;
+      transition: color 0.3s;
+    }
+    .why-line:hover { color: var(--white); }
+    .why-line:last-child { border-bottom: none; }
+    .why-answer {
+      margin-top: 48px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .why-no {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 2rem); color: rgba(255,255,255,0.2);
+    }
+    .why-yes {
+      font-size: clamp(1.5rem, 3.5vw, 2.4rem); font-weight: 900;
+      line-height: 1.2; word-break: keep-all;
+    }
+    .why-yes em { color: var(--orange); font-style: inherit; }
+
+    /* ══════════════════════════════════════════
+       SECTION 03 — NOBRK PHILOSOPHY
+    ══════════════════════════════════════════ */
+    .philosophy {
+      background: var(--charcoal);
+      padding: 80px 40px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .phil-label {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .phil-quote {
+      font-size: clamp(1.3rem, 3vw, 2.1rem); font-weight: 900;
+      line-height: 1.4; max-width: 700px; margin: 0 auto 16px;
+      word-break: keep-all;
+    }
+    .phil-source {
+      font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 36px;
+    }
+    .phil-body {
+      font-size: 1rem; color: var(--muted); max-width: 520px; margin: 0 auto 28px;
+      font-weight: 300; word-break: keep-all; line-height: 1.8;
+    }
+    .phil-wmu {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-style: italic;
+      font-size: 1.1rem; letter-spacing: 3px; color: var(--orange);
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION 04 — ONE MORE STEP
+    ══════════════════════════════════════════ */
+    .one-more {
+      padding: 90px 40px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .oms-label {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 48px;
+    }
+    .oms-steps {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      width: 100%; max-width: 300px;
+    }
+    .oms-step {
+      width: 100%; text-align: center;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .oms-step:last-child { border-bottom: none; }
+    .oms-word {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: clamp(1.4rem, 3vw, 1.9rem); letter-spacing: 3px;
+      color: rgba(255,255,255,0.22);
+      transition: color 0.4s;
+    }
+    .oms-step:hover .oms-word { color: rgba(255,255,255,0.75); }
+    .oms-step.accent .oms-word {
+      color: var(--red); font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: 4px;
+    }
+    .oms-arrow {
+      font-size: 0.75rem; color: var(--border); display: block; padding: 6px 0;
+    }
+    .oms-final {
+      margin-top: 36px;
+      font-size: 1.1rem; color: var(--muted); font-weight: 300; letter-spacing: 1px;
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION 05 — NOBRK CONTENT
+    ══════════════════════════════════════════ */
+    .content-sec {
+      padding: 80px 40px;
+      background: var(--charcoal);
+      border-top: 1px solid var(--border);
+    }
+    .sec-header {
+      text-align: center; margin-bottom: 40px;
+    }
+    .sec-label {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px;
+    }
+    .sec-title {
+      font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 900;
+      line-height: 1.3; word-break: keep-all;
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px; max-width: 960px; margin: 0 auto;
+    }
+    .c-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px 24px;
+      display: flex; flex-direction: column; gap: 12px;
+      transition: border-color 0.25s, transform 0.25s;
+      text-decoration: none; color: inherit;
+    }
+    .c-card:hover { border-color: rgba(255,85,0,0.4); transform: translateY(-3px); }
+    .c-tag {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--orange);
+    }
+    .c-headline {
+      font-size: 1.05rem; font-weight: 900; line-height: 1.35; word-break: keep-all;
+    }
+    .c-channel {
+      margin-top: auto; font-size: 0.75rem; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .c-channel-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+
+    /* ══════════════════════════════════════════
+       SECTION 06 — COMMUNITY
+    ══════════════════════════════════════════ */
+    .community {
+      padding: 90px 40px;
+      max-width: 760px; margin: 0 auto;
+      text-align: center;
+    }
+    .comm-label {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 28px;
+    }
+    .comm-q {
+      font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 900;
+      line-height: 1.35; margin-bottom: 36px; word-break: keep-all;
+    }
+    .comm-form {
+      display: flex; gap: 8px; max-width: 480px; margin: 0 auto 36px;
+    }
+    .comm-prefix {
+      font-size: 0.95rem; color: var(--muted); white-space: nowrap;
+      display: flex; align-items: center;
+    }
+    .comm-input {
+      flex: 1; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2);
+      color: var(--white); font-family: 'Noto Sans KR', sans-serif; font-size: 0.95rem;
+      padding: 8px 4px; outline: none; transition: border-color 0.2s;
+    }
+    .comm-input:focus { border-color: var(--orange); }
+    .comm-input::placeholder { color: rgba(255,255,255,0.2); }
+    .comm-btn {
+      background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--white);
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 10px 18px; cursor: pointer; border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .comm-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .comm-answers { display: flex; flex-direction: column; gap: 0; }
+    .comm-ans {
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+      color: var(--muted); font-size: 0.9rem; font-weight: 300; text-align: left;
+      transition: color 0.25s;
+    }
+    .comm-ans:last-child { border-bottom: none; }
+    .comm-ans:hover { color: var(--white); }
+    .comm-ans::before { content: '" '; color: var(--orange); }
+    .comm-ans::after  { content: ' "'; color: var(--orange); }
+
+    /* ══════════════════════════════════════════
+       SECTION 07 — FINAL MESSAGE (Cinematic)
+    ══════════════════════════════════════════ */
+    .finale {
+      position: relative; min-height: 80vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 40px;
+      overflow: hidden;
+      text-align: center;
+    }
+    .finale-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-image: url('final_bg.jpg');
+      background-size: cover; background-position: center 40%;
+    }
+    .finale-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(8,9,11,0.7) 0%, rgba(8,9,11,0.55) 50%, rgba(8,9,11,0.88) 100%);
+    }
+    .finale-content { position: relative; z-index: 1; max-width: 640px; }
+    .finale-pre {
+      font-size: 1rem; color: var(--muted); font-weight: 300; margin-bottom: 32px;
+      line-height: 1.9; word-break: keep-all;
+    }
+    .finale-together {
+      font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 900;
+      margin-bottom: 40px; line-height: 1.2;
+    }
+    .finale-together em { color: var(--orange); font-style: inherit; }
+    .finale-brand {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-style: italic;
+      font-size: clamp(2.2rem, 5vw, 3.8rem); letter-spacing: -1px; margin-bottom: 8px;
+    }
+    .finale-brand em { color: var(--orange); font-style: inherit; }
+    .finale-wmu {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 5px; text-transform: uppercase; color: rgba(255,255,255,0.5);
+      margin-bottom: 36px;
+    }
+    .finale-close {
+      font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 2.2;
+    }
+    .finale-step {
+      font-size: 1rem; font-weight: 900; color: var(--white); letter-spacing: 1px;
+    }
+
+    /* Subscribe row inside finale */
+    .finale-sub {
+      margin-top: 36px;
+      display: flex; gap: 8px; max-width: 380px; margin: 36px auto 0;
+    }
+    .finale-sub input {
+      flex: 1; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15);
+      color: #fff; padding: 12px 16px; border-radius: 2px; outline: none; font-size: 0.85rem;
+      transition: border-color 0.2s;
+    }
+    .finale-sub input:focus { border-color: var(--orange); }
+    .finale-sub input::placeholder { color: rgba(255,255,255,0.25); }
+    .finale-sub button {
+      background: var(--orange); color: #fff; border: none;
+      padding: 12px 20px; font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; cursor: pointer;
+      border-radius: 2px; transition: background 0.2s;
+    }
+    .finale-sub button:hover { background: #e04a00; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 24px 40px;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: rgba(255,255,255,0.2);
+      letter-spacing: 1px;
+    }
+
+    /* ══════════════════════════════════════════
+       SCROLL ANIMATIONS
+    ══════════════════════════════════════════ */
+    @media (prefers-reduced-motion: no-preference) {
+      @supports ((animation-timeline: view()) and (animation-range: entry)) {
+        @keyframes fade-rise {
+          from { opacity: 0; translate: 0 32px; }
+          to   { opacity: 1; translate: 0 0; }
+        }
+        @keyframes fade-drop {
+          to { opacity: 0; translate: 0 -16px; }
+        }
+        .reveal {
+          animation:
+            fade-rise 0.65s ease-out backwards,
+            fade-drop 0.5s ease-in  forwards;
+          animation-timeline: view();
+          animation-range: entry 0% entry 28%, exit 72% exit 100%;
+        }
+        .reveal-d1 { animation-delay: 0.08s; }
+        .reveal-d2 { animation-delay: 0.16s; }
+        .reveal-d3 { animation-delay: 0.24s; }
+      }
+      @supports not ((animation-timeline: view()) and (animation-range: entry)) {
+        .reveal {
+          opacity: 0; translate: 0 32px;
+          transition: opacity 0.65s ease-out, translate 0.65s ease-out;
+        }
+        .reveal.is-visible { opacity: 1; translate: 0 0; }
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      nav { padding: 18px 20px; }
+      .hero { padding: 0 20px 56px; }
+      .why, .one-more, .community, .finale { padding-left: 20px; padding-right: 20px; }
+      .philosophy, .content-sec { padding-left: 20px; padding-right: 20px; }
+      .comm-form { flex-direction: column; align-items: stretch; }
+      .finale-sub { flex-direction: column; }
+      footer { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="#" class="logo">NO<em>BRK</em></a>
+    <a href="#finale" class="nav-cta">Keep Going</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+       S01 — HERO
+  ══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Mindset &amp; Lifestyle</p>
+      <h1 class="hero-title">NO<em>BRK</em></h1>
+      <p class="hero-slogan">WE MUST GO ON.</p>
+      <p class="hero-sub">지친 당신에게,<br>다시 한 걸음의 이유를.</p>
+      <a href="#why" class="hero-cta">
+        <span>KEEP GOING</span>
+        <span>→</span>
+      </a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>scroll</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       S02 — WHY WE GO ON
+  ══════════════════════════════════════════ -->
+  <section class="why" id="why">
+    <p class="why-label reveal">Why We Go On</p>
+    <h2 class="why-q reveal">우리는 왜<br>계속 가야 할까요?</h2>
+    <div class="why-lines">
+      <p class="why-line reveal">일이 잘 풀리지 않을 때.</p>
+      <p class="why-line reveal">실패했을 때.</p>
+      <p class="why-line reveal">나만 뒤처진 것 같을 때.</p>
+      <p class="why-line reveal">사랑하는 사람과 멀어졌을 때.</p>
+    </div>
+    <div class="why-answer">
+      <p class="why-no reveal">그럴 때 꼭 강해져야 할까요?</p>
+      <p class="why-yes reveal">아니요.<br><em>다시 한 걸음이면</em> 됩니다.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       S03 — NOBRK PHILOSOPHY
+  ══════════════════════════════════════════ -->
+  <section class="philosophy">
+    <p class="phil-label reveal">NOBRK Philosophy</p>
+    <blockquote class="phil-quote reveal">
+      "나를 구하는 가장 빠른 길은<br>남을 구하려고 애쓰는 것이다."
+    </blockquote>
+    <p class="phil-source reveal">— 『그리스인 조르바』에서</p>
+    <p class="phil-body reveal">
+      우리는 혼자 계속 가는 것이 아니라<br>
+      서로의 한 걸음을 도우며 나아갑니다.
+    </p>
+    <p class="phil-wmu reveal">WE MUST GO ON.</p>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       S04 — ONE MORE STEP
+  ══════════════════════════════════════════ -->
+  <section class="one-more">
+    <p class="oms-label reveal">One More Step</p>
+    <div class="oms-steps">
+      <div class="oms-step reveal">
+        <span class="oms-word">FALL</span>
+      </div>
+      <span class="oms-arrow reveal">↓</span>
+      <div class="oms-step reveal">
+        <span class="oms-word">REST</span>
+      </div>
+      <span class="oms-arrow reveal">↓</span>
+      <div class="oms-step reveal">
+        <span class="oms-word">BREATHE</span>
+      </div>
+      <span class="oms-arrow reveal">↓</span>
+      <div class="oms-step reveal">
+        <span class="oms-word">TRY AGAIN</span>
+      </div>
+      <span class="oms-arrow reveal">↓</span>
+      <div class="oms-step accent reveal">
+        <span class="oms-word">GO ON</span>
+      </div>
+    </div>
+    <p class="oms-final reveal">한 걸음 더.</p>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       S05 — NOBRK CONTENT
+  ══════════════════════════════════════════ -->
+  <section class="content-sec">
+    <div class="sec-header">
+      <p class="sec-label reveal">Daily Content</p>
+      <h2 class="sec-title reveal">오늘, 당신에게 필요한 한 문장</h2>
+    </div>
+    <div class="content-grid">
+      <a href="#" class="c-card reveal">
+        <span class="c-tag">Today's Word</span>
+        <p class="c-headline">멈추지 마라.<br>아직이다.</p>
+        <span class="c-channel"><span class="c-channel-dot"></span> YouTube Shorts</span>
+      </a>
+      <a href="#" class="c-card reveal reveal-d1">
+        <span class="c-tag">For Someone Who Is Tired</span>
+        <p class="c-headline">두려움이<br>방향을 알려준다.</p>
+        <span class="c-channel"><span class="c-channel-dot"></span> Instagram</span>
+      </a>
+      <a href="#" class="c-card reveal reveal-d2">
+        <span class="c-tag">One More Step</span>
+        <p class="c-headline">오늘의 고통이<br>내일의 연료다.</p>
+        <span class="c-channel"><span class="c-channel-dot"></span> Threads</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       S06 — COMMUNITY
+  ══════════════════════════════════════════ -->
+  <section class="community">
+    <p class="comm-label reveal">Community</p>
+    <h2 class="comm-q reveal">오늘 당신을 계속 가게 하는<br>것은 무엇인가요?</h2>
+    <form class="comm-form reveal" onsubmit="event.preventDefault(); this.reset(); alert('당신의 이유가 누군가에게 힘이 됩니다.');">
+      <span class="comm-prefix">나는&nbsp;</span>
+      <input class="comm-input" type="text" placeholder="______" required>
+      <button class="comm-btn" type="submit">남기기</button>
+    </form>
+    <div class="comm-answers">
+      <p class="comm-ans reveal">가족이 있어서.</p>
+      <p class="comm-ans reveal reveal-d1">아직 포기하고 싶지 않은 꿈이 있어서.</p>
+      <p class="comm-ans reveal reveal-d2">나를 믿어준 사람이 있어서.</p>
+      <p class="comm-ans reveal">언젠가 나도 누군가에게 힘이 되고 싶어서.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       S07 — FINAL MESSAGE
+  ══════════════════════════════════════════ -->
+  <section class="finale" id="finale">
+    <div class="finale-bg"></div>
+    <div class="finale-content">
+      <p class="finale-pre reveal">
+        혹시 지금 힘든 사람이 있다면<br>
+        그 사람에게 이 페이지를 보내주세요.
+      </p>
+      <p class="finale-together reveal"><em>같이</em> 가자.</p>
+      <h2 class="finale-brand reveal">NO<em>BRK</em></h2>
+      <p class="finale-wmu reveal">WE MUST GO ON.</p>
+      <p class="finale-close reveal">
+        오늘도 여기까지 왔으니까.<br>
+        내일,
+      </p>
+      <p class="finale-step reveal">한 걸음 더.</p>
+      <form class="finale-sub reveal" onsubmit="event.preventDefault(); this.reset(); alert('NOBRK 크루가 되신 것을 환영합니다. We must go on.');">
+        <input type="email" placeholder="이메일로 받아보기" required>
+        <button type="submit">합류하기</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 NOBRK Project — WE MUST GO ON.
+  </footer>
+
+  <!-- IntersectionObserver fallback for browsers without scroll-driven animations -->
+  <script>
+    (function () {
+      if (CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            var delay = e.target.classList.contains('reveal-d1') ? 80
+                      : e.target.classList.contains('reveal-d2') ? 160
+                      : e.target.classList.contains('reveal-d3') ? 240 : 0;
+            setTimeout(function () { e.target.classList.add('is-visible'); }, delay);
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+</body>
+</html>
