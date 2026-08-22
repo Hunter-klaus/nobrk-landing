@@ -20,17 +20,18 @@ export default function CommunityPage() {
     <>
       <Navigation />
       <main className="min-h-screen bg-[#0A0A0A] pt-24 pb-32 px-6 md:px-12">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
 
           {/* Header */}
-          <div className="mb-20 md:mb-28">
+          <div className="mb-16 md:mb-24">
             <p className="text-amber-500/70 text-xs tracking-[0.3em] uppercase mb-4 font-light">
               NOBRK Community
             </p>
-            <h1 className="text-[clamp(2rem,6vw,4rem)] font-black text-white leading-[1.15] mb-8">
-              오늘 당신을 계속<br />가게 하는 것은<br />무엇인가요?
+            {/* 데스크톱/태블릿은 1줄, 모바일은 최대 2줄 */}
+            <h1 className="text-[clamp(1.8rem,4.5vw,3.5rem)] font-black text-white leading-[1.25] mb-6 whitespace-normal lg:whitespace-nowrap">
+              오늘 당신을 계속 가게 하는 것은 무엇인가요?
             </h1>
-            <p className="text-white/30 text-sm font-light">
+            <p className="text-white/30 text-sm md:text-base font-light">
               당신의 이유가 누군가에게 힘이 됩니다.
             </p>
           </div>
