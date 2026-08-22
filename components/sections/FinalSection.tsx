@@ -5,10 +5,10 @@ import { motion } from 'framer-motion'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
 const reasons = [
-  '완벽하지 않아도.',
-  '늦어도.',
-  '두려워도.',
-  '넘어져도.',
+  '완벽하지 않아도...',
+  '늦어도...',
+  '두려워도...',
+  '넘어져도...',
 ]
 
 export default function FinalSection() {
@@ -37,19 +37,19 @@ export default function FinalSection() {
         />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
-        {/* 그래서 오늘도 갑니다 */}
+      <div className="relative z-10 max-w-5xl mx-auto text-center px-4">
+        {/* 아직 끝나지 않았으니까요. */}
         <ScrollReveal>
-          <h2 className="text-[clamp(2.5rem,7vw,5rem)] font-black text-white leading-tight mb-12">
-            그래서 오늘도 갑니다.
+          <h2 className="text-[clamp(2.2rem,6vw,4.5rem)] font-black text-white leading-tight mb-14">
+            아직 끝나지 않았으니까요.
           </h2>
         </ScrollReveal>
 
-        {/* 4가지 조건 */}
-        <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-16">
+        {/* 4가지 조건 — 테두리 없이 점점점으로 감성적인 연결 */}
+        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 mb-16">
           {reasons.map((reason, i) => (
             <ScrollReveal key={i} delay={0.15 * i}>
-              <span className="text-white/50 text-base md:text-xl font-light tracking-wide px-4 py-2 border border-white/10 rounded-full">
+              <span className="text-white/45 text-base md:text-xl font-light tracking-widest">
                 {reason}
               </span>
             </ScrollReveal>
@@ -58,20 +58,20 @@ export default function FinalSection() {
 
         {/* 다시 일어나 한 걸음 더 */}
         <ScrollReveal delay={0.6}>
-          <p className="text-white/70 text-lg md:text-2xl font-light mb-8">
+          <p className="text-white/70 text-lg md:text-2xl font-light mb-10 tracking-wide">
             다시 일어나 한 걸음 더.
           </p>
         </ScrollReveal>
 
-        {/* WE MUST GO ON */}
+        {/* WE MUST GO ON. — 줄바꿈 없이 한 줄로 유지 */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-6 mb-16"
+          className="mt-4 mb-16"
         >
-          <p className="text-amber-500 text-[clamp(2.5rem,8vw,6rem)] font-black tracking-[0.1em] uppercase leading-none">
+          <p className="text-amber-500 text-[clamp(2rem,6.5vw,5.5rem)] font-black tracking-[0.08em] uppercase leading-none whitespace-nowrap">
             WE MUST GO ON.
           </p>
         </motion.div>
