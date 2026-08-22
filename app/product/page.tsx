@@ -40,54 +40,54 @@ export default function ProductPage() {
 
           {/* Header */}
           <div className="mb-20 md:mb-28">
-            <p className="text-amber-500 text-xs tracking-[0.35em] uppercase mb-4 font-bold">
+            <p className="text-white/40 text-xs tracking-[0.35em] uppercase mb-4 font-light">
               NOBRK Product
             </p>
             <h1 className="text-[clamp(2.2rem,5.5vw,4.2rem)] font-black text-white leading-[1.15] mb-6">
               계속 나아갈 이유를<br className="sm:hidden" /> 곁에 둡니다.
             </h1>
-            <p className="text-white/70 text-base md:text-lg font-light max-w-lg leading-relaxed">
+            <p className="text-white/60 text-base md:text-lg font-light max-w-lg leading-relaxed">
               NOBRK는 단순한 물건이 아닌, 당신이 멈추지 않고 계속 나아갈 수 있는 일상의 징표를 만듭니다.
             </p>
           </div>
 
-          {/* Category sections — 고대비 카드 및 배지 */}
-          <div className="flex flex-col gap-6">
+          {/* Category sections — 절제된 고급스러움 */}
+          <div className="flex flex-col gap-5">
             {categories.map((cat) => (
               <div
                 key={cat.id}
-                className="bg-[#121212] border border-white/15 hover:border-amber-500/50 p-10 md:p-14 rounded-sm transition-all duration-300 shadow-xl"
+                className="bg-[#111111] border border-white/[0.08] hover:border-white/20 p-10 md:p-14 rounded-sm transition-all duration-300 shadow-xl"
               >
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-16 mb-10">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-16 mb-8">
                   <div>
-                    <p className="text-xs tracking-[0.35em] text-white/50 uppercase font-semibold mb-3">
+                    <p className="text-[10px] tracking-[0.35em] text-white/30 uppercase font-light mb-3">
                       NOBRK
                     </p>
-                    <h2 className="text-3xl md:text-5xl font-black text-white tracking-[0.05em] mb-3">
+                    <h2 className="text-3xl md:text-4xl font-black text-white tracking-[0.05em] mb-2">
                       {cat.label}
                     </h2>
-                    <p className="text-amber-400 text-xl md:text-2xl font-bold mb-4 tracking-wide">
+                    <p className="text-white/80 text-lg md:text-xl font-light mb-3">
                       {cat.tagline}
                     </p>
-                    <p className="text-white/75 text-base font-light leading-relaxed whitespace-pre-line">
+                    <p className="text-white/45 text-sm font-light leading-relaxed whitespace-pre-line">
                       {cat.desc}
                     </p>
                   </div>
 
-                  {/* COMING SOON badge — 시인성 높은 배지 */}
+                  {/* COMING SOON badge — 미니멀 모노크롬 배지 */}
                   <div className="flex-shrink-0">
-                    <span className="inline-block border border-amber-500/60 bg-amber-500/10 text-amber-400 text-xs tracking-[0.3em] uppercase px-5 py-2.5 font-bold rounded-sm shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+                    <span className="inline-block border border-white/20 text-white/50 text-[10px] tracking-[0.3em] uppercase px-4 py-2 font-light rounded-sm">
                       COMING SOON
                     </span>
                   </div>
                 </div>
 
-                {/* Item list — 선명한 칩 태그 */}
-                <div className="pt-6 border-t border-white/10 flex flex-wrap gap-3">
+                {/* Item list */}
+                <div className="pt-6 border-t border-white/[0.06] flex flex-wrap gap-2.5">
                   {cat.items.map((item) => (
                     <span
                       key={item}
-                      className="text-xs tracking-[0.15em] text-white/90 uppercase border border-white/20 bg-white/[0.05] px-4 py-2.5 rounded-sm hover:border-amber-500/60 hover:text-amber-300 transition-colors duration-200 font-medium"
+                      className="text-xs tracking-[0.15em] text-white/70 uppercase border border-white/10 bg-white/[0.02] px-3.5 py-2 rounded-sm font-light"
                     >
                       {item}
                     </span>
@@ -98,11 +98,11 @@ export default function ProductPage() {
           </div>
 
           {/* Bottom message */}
-          <div className="mt-20 text-center border-t border-white/10 pt-16">
-            <p className="text-white/60 text-sm tracking-[0.4em] uppercase font-light mb-3">
+          <div className="mt-20 text-center border-t border-white/[0.06] pt-16">
+            <p className="text-white/30 text-xs tracking-[0.4em] uppercase font-light mb-3">
               Words you can carry.
             </p>
-            <p className="text-amber-500 text-xs tracking-widest uppercase font-bold">WE MUST GO ON.</p>
+            <p className="text-white/15 text-[10px] tracking-widest uppercase font-light">WE MUST GO ON.</p>
           </div>
         </div>
       </main>
