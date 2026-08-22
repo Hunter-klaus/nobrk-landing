@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -18,20 +17,17 @@ export default function Navigation() {
   const pathname = usePathname()
   const router = useRouter()
 
-  // Scroll detection for header background
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Always scroll to top on route change
   useEffect(() => {
     setMenuOpen(false)
     window.scrollTo(0, 0)
   }, [pathname])
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden'
@@ -41,7 +37,6 @@ export default function Navigation() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  // Handle navigation click - if already on the page, smoothly scroll to top
   const handleNav = (href: string) => {
     setMenuOpen(false)
     if (pathname === href) {
@@ -56,8 +51,8 @@ export default function Navigation() {
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled || menuOpen
-            ? 'bg-black/90 backdrop-blur-md border-b border-white/[0.08] shadow-lg'
-            : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent'
+            ? 'bg-black/90 backdrop-blur-md border-b border-white/[0.06]'
+            : 'bg-gradient-to-b from-black/80 via-black/30 to-transparent'
         }`}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -67,43 +62,50 @@ export default function Navigation() {
           {/* Logo */}
           <button
             onClick={() => handleNav('/')}
-            className="text-white font-black text-sm tracking-[0.35em] uppercase hover:text-amber-500 transition-colors duration-300 cursor-pointer"
+            className="text-white font-black text-sm tracking-[0.35em] uppercase hover:text-white/80 transition-colors duration-300 cursor-pointer"
             aria-label="NOBRK 메인으로"
           >
             NOBRK
           </button>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="메인 내비게이션">
+          {/* Desktop nav — 모던 미니멀 스타일 (Active: 크리스프 화이트 + 섬세한 언더라인) */}
+          <nav className="hidden md:flex items-center gap-9" aria-label="메인 내비게이션">
             {navItems.map((item) => {
               const isActive = pathname === item.href
               return (
                 <button
                   key={item.label}
                   onClick={() => handleNav(item.href)}
-                  className={`text-xs tracking-[0.25em] uppercase transition-all duration-300 cursor-pointer py-1 ${
+                  className={`relative text-xs tracking-[0.25em] uppercase transition-all duration-200 cursor-pointer py-1.5 ${
                     isActive
-                      ? 'text-amber-500 font-bold border-b-2 border-amber-500'
-                      : 'text-white/60 hover:text-white font-medium'
+                      ? 'text-white font-bold'
+                      : 'text-white/40 hover:text-white/90 font-light'
                   }`}
                 >
                   {item.label}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavIndicator"
+                      className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-white"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </button>
               )
             })}
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA — 절제된 모노크롬 테두리 */}
           <div className="hidden md:block">
             <button
               onClick={() => handleNav('/community')}
-              className="text-xs tracking-[0.25em] uppercase text-amber-400 hover:text-amber-300 font-bold transition-colors duration-300 border border-amber-500/40 hover:border-amber-400 px-4 py-2 rounded-sm bg-amber-500/10 cursor-pointer"
+              className="text-xs tracking-[0.25em] uppercase text-white/70 hover:text-white font-medium transition-colors duration-300 border border-white/20 hover:border-white/50 px-4 py-2 rounded-sm bg-white/[0.03] cursor-pointer"
             >
               KEEP GOING →
             </button>
           </div>
 
-          {/* Mobile hamburger button */}
+          {/* Mobile hamburger */}
           <button
             className="md:hidden flex flex-col gap-[6px] p-2 cursor-pointer z-50"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -111,18 +113,18 @@ export default function Navigation() {
             aria-expanded={menuOpen}
           >
             <motion.span
-              className="w-6 h-[2px] bg-white block"
-              animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+              className="w-6 h-[1.5px] bg-white block"
+              animate={menuOpen ? { rotate: 45, y: 7.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.25 }}
             />
             <motion.span
-              className="w-6 h-[2px] bg-white block"
+              className="w-6 h-[1.5px] bg-white block"
               animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
               transition={{ duration: 0.25 }}
             />
             <motion.span
-              className="w-6 h-[2px] bg-white block"
-              animate={menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+              className="w-6 h-[1.5px] bg-white block"
+              animate={menuOpen ? { rotate: -45, y: -7.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.25 }}
             />
           </button>
@@ -147,12 +149,12 @@ export default function Navigation() {
                     key={item.label}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.06 + 0.05 }}
+                    transition={{ delay: i * 0.05 + 0.05 }}
                   >
                     <button
                       onClick={() => handleNav(item.href)}
                       className={`text-2xl tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer ${
-                        isActive ? 'text-amber-500 font-bold' : 'text-white/70 hover:text-white font-light'
+                        isActive ? 'text-white font-bold border-b border-white pb-1' : 'text-white/40 hover:text-white font-light'
                       }`}
                     >
                       {item.label}
@@ -163,12 +165,12 @@ export default function Navigation() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.35 }}
-                className="mt-6"
+                transition={{ delay: 0.3 }}
+                className="mt-8"
               >
                 <button
                   onClick={() => handleNav('/community')}
-                  className="bg-amber-500 text-black font-bold text-sm tracking-[0.3em] uppercase px-8 py-3 rounded-sm cursor-pointer shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+                  className="border border-white/30 text-white font-medium text-xs tracking-[0.3em] uppercase px-8 py-3 rounded-sm cursor-pointer hover:bg-white hover:text-black transition-colors duration-300"
                 >
                   KEEP GOING →
                 </button>
