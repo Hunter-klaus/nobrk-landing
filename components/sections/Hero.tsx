@@ -54,7 +54,7 @@ export default function Hero() {
 
         {/* WE MUST GO ON — 1~2pt 크게: text-sm md:text-base → text-base md:text-lg */}
         <motion.p
-          className="text-white/65 text-base md:text-lg tracking-[0.4em] uppercase mb-10 font-light"
+          className="text-amber-500 text-base md:text-lg tracking-[0.4em] uppercase mb-10 font-light"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
