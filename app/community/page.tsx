@@ -25,67 +25,66 @@ export default function CommunityPage() {
 
           {/* Header */}
           <div className="mb-16 md:mb-24">
-            <p className="text-amber-500 text-xs tracking-[0.35em] uppercase mb-4 font-bold">
+            <p className="text-white/40 text-xs tracking-[0.35em] uppercase mb-4 font-light">
               NOBRK Community
             </p>
             <h1 className="text-[clamp(1.8rem,4.5vw,3.5rem)] font-black text-white leading-[1.25] mb-6 whitespace-normal lg:whitespace-nowrap">
               오늘 당신을 계속 가게 하는 것은 무엇인가요?
             </h1>
-            <p className="text-white/70 text-base md:text-lg font-light">
+            <p className="text-white/60 text-base md:text-lg font-light">
               당신의 이유가 누군가에게 다시 일어설 힘이 됩니다.
             </p>
           </div>
 
-          {/* Input form — 고대비 UI */}
-          <div className="mb-20 bg-[#121212] border border-white/10 rounded-sm p-8 md:p-12 shadow-xl">
-            <p className="text-white text-lg md:text-xl font-medium mb-8 leading-relaxed">
+          {/* Input form — 세련된 모노크롬 */}
+          <div className="mb-20 bg-[#111111] border border-white/[0.08] rounded-sm p-8 md:p-12 shadow-xl">
+            <p className="text-white text-lg md:text-xl font-light mb-8 leading-relaxed">
               나는&nbsp;
-              <span className="border-b-2 border-amber-500 text-amber-400 font-bold px-2 py-1 bg-white/[0.04]">______</span>
+              <span className="border-b border-white/60 text-white font-semibold px-2 py-0.5">______</span>
               &nbsp;때문에 계속 갑니다.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="text"
-                placeholder="당신의 이유를 적어주세요 (예: 지키고 싶은 사람이 있어서)"
-                className="flex-1 bg-white/[0.06] border border-white/20 text-white text-base py-4 px-5 rounded-sm outline-none placeholder:text-white/40 focus:border-amber-500 focus:bg-white/[0.09] transition-all duration-300"
+                placeholder="당신의 이유를 적어주세요"
+                className="flex-1 bg-white/[0.04] border border-white/15 text-white text-base py-3.5 px-5 rounded-sm outline-none placeholder:text-white/30 focus:border-white/40 transition-all duration-300"
               />
-              <button className="bg-amber-500 hover:bg-amber-400 text-black font-black text-sm tracking-[0.2em] uppercase px-8 py-4 rounded-sm transition-all duration-300 whitespace-nowrap cursor-pointer shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+              <button className="bg-white hover:bg-white/90 text-black font-bold text-xs tracking-[0.2em] uppercase px-8 py-3.5 rounded-sm transition-all duration-300 whitespace-nowrap cursor-pointer">
                 남기기
               </button>
             </div>
-            <p className="text-white/40 text-xs tracking-wider mt-4">
+            <p className="text-white/30 text-xs tracking-wider mt-4">
               * 작성하신 글은 익명으로 안전하게 공유됩니다.
             </p>
           </div>
 
-          {/* Anonymous answers — 시인성 강화 */}
-          <div className="border-t border-white/10 pt-16">
-            <div className="flex items-center justify-between mb-10">
-              <p className="text-white/80 text-sm tracking-[0.3em] uppercase font-bold">
+          {/* Anonymous answers */}
+          <div className="border-t border-white/[0.06] pt-16">
+            <div className="flex items-center justify-between mb-8">
+              <p className="text-white/50 text-xs tracking-[0.3em] uppercase font-light">
                 다른 사람들의 이유
               </p>
-              <span className="text-amber-500/80 text-xs font-medium">실시간 공유</span>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               {anonymousReasons.map((reason, i) => (
                 <div
                   key={i}
-                  className="bg-[#121212] border border-white/10 hover:border-amber-500/40 p-6 rounded-sm text-white/90 text-base md:text-lg font-light hover:text-white transition-all duration-300 flex items-start gap-3"
+                  className="bg-[#111111] border border-white/[0.06] hover:border-white/20 p-5 rounded-sm text-white/80 text-base font-light transition-all duration-200"
                 >
-                  <span className="text-amber-500 font-black text-xl leading-none">“</span>
-                  <span className="flex-1">{reason}</span>
-                  <span className="text-amber-500 font-black text-xl leading-none">”</span>
+                  <span className="text-white/30 mr-2 font-serif">"</span>
+                  {reason}
+                  <span className="text-white/30 ml-1 font-serif">"</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Bottom message */}
-          <div className="mt-20 text-center border-t border-white/10 pt-16">
-            <p className="text-white/60 text-xs tracking-[0.4em] uppercase font-light mb-2">
+          <div className="mt-20 text-center border-t border-white/[0.06] pt-16">
+            <p className="text-white/30 text-xs tracking-[0.4em] uppercase font-light mb-2">
               우리는 서로의 한 걸음이 되어줍니다.
             </p>
-            <p className="text-amber-500/80 text-xs tracking-widest uppercase font-bold">WE MUST GO ON.</p>
+            <p className="text-white/15 text-xs tracking-widest uppercase font-light">WE MUST GO ON.</p>
           </div>
         </div>
       </main>
