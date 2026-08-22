@@ -1,39 +1,14 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import ScrollReveal from '@/components/ui/ScrollReveal'
-
-const steps = [
-  { word: 'FALL',      color: 'text-white/20' },
-  { word: 'REST',      color: 'text-white/25' },
-  { word: 'BREATHE',   color: 'text-white/32' },
-  { word: 'TRY AGAIN', color: 'text-white/42' },
-  { word: 'GO ON',     color: 'text-[#A52828]', isAccent: true },
-]
-
-interface StepProps { word: string; color: string; isAccent?: boolean; index: number }
-
-function StepWord({ word, color, isAccent, index }: StepProps) {
-  return (
-    <ScrollReveal delay={index * 0.12}>
-      <p className={`font-black tracking-[0.08em] leading-none select-none ${color} ${
-        isAccent
-          ? 'text-[clamp(3rem,8vw,6rem)]'
-          : 'text-[clamp(2rem,5vw,4rem)]'
-      }`}>
-        {word}
-      </p>
-    </ScrollReveal>
-  )
-}
 
 export default function OneMoreStep() {
   return (
     <section
-      id="section-04"
+      id="section-03"
       className="relative py-32 md:py-48 px-6 md:px-12 overflow-hidden"
-      aria-label="ONE MORE STEP"
+      aria-label="03. NOBRK 핵심"
     >
       {/* 시네마틱 배경 — 위로 향하는 계단 */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
@@ -45,66 +20,67 @@ export default function OneMoreStep() {
           className="object-cover object-center"
           sizes="100vw"
         />
-        {/* 매우 어두운 오버레이 — 텍스트 완전 가독 */}
         <div
           className="absolute inset-0"
           style={{
             background: 'rgba(10,10,10,0.88)',
           }}
         />
-        {/* 중앙에서 살짝 이미지 비쳐보임 */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse at 50% 60%, rgba(10,10,10,0.50) 0%, rgba(10,10,10,0.92) 70%)',
-            mixBlendMode: 'multiply',
+            background: 'radial-gradient(ellipse at 50% 50%, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.95) 75%)',
           }}
         />
       </div>
 
-      {/* 앰비언트 */}
-      <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-amber-800/[0.04] blur-[120px]" />
-      </div>
+      <div className="relative z-10 max-w-4xl mx-auto">
+        <ScrollReveal>
+          <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-6 font-light">
+            03 / CORE
+          </p>
+          <blockquote className="mb-14">
+            <p className="text-[clamp(1.5rem,4vw,2.8rem)] font-light text-white leading-[1.35]">
+              "당신에게 필요한 건<br />
+              <span className="text-white/60">더 큰 힘이 아닐지도 모릅니다."</span>
+            </p>
+          </blockquote>
+        </ScrollReveal>
 
-      <div className="relative z-10 max-w-5xl mx-auto">
-        <div className="mb-20 md:mb-28">
-          <ScrollReveal>
-            <p className="text-white/20 text-xs tracking-[0.3em] uppercase mb-4">One More Step</p>
+        <ScrollReveal delay={0.2}>
+          <p className="text-white/50 text-base md:text-lg font-light mb-8">
+            어쩌면 필요한 건
+          </p>
+          <h3 className="text-[clamp(2.5rem,7vw,5rem)] font-black text-amber-500 leading-none mb-12">
+            딱 한 걸음.
+          </h3>
+        </ScrollReveal>
+
+        <div className="flex flex-col gap-4 mb-14">
+          <ScrollReveal delay={0.3}>
+            <p className="text-white/60 text-base md:text-lg font-light pl-4 border-l border-white/20">
+              오늘 해야 할 일 하나.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={0.4}>
+            <p className="text-white/60 text-base md:text-lg font-light pl-4 border-l border-white/20">
+              오늘 지켜야 할 약속 하나.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={0.5}>
+            <p className="text-white/60 text-base md:text-lg font-light pl-4 border-l border-white/20">
+              오늘 포기하지 않는 것 하나.
+            </p>
           </ScrollReveal>
         </div>
 
-        <div className="flex flex-col gap-10 md:gap-14">
-          {steps.slice(0, -1).map((step, i) => (
-            <div key={step.word}>
-              <StepWord {...step} index={i} />
-              <motion.div
-                className="mt-5 text-white/10 text-sm font-light"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                aria-hidden="true"
-              >
-                ↓
-              </motion.div>
-            </div>
-          ))}
-        </div>
-
-        {/* GO ON — RED accent, 더 크게 */}
-        <div className="flex flex-col items-start gap-2 mt-10">
-          <StepWord {...steps[steps.length - 1]} index={4} />
-          <motion.p
-            className="text-amber-500/55 text-sm tracking-widest mt-5 font-light"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-          >
-            WE MUST GO ON.
-          </motion.p>
-        </div>
+        <ScrollReveal delay={0.6}>
+          <div className="pt-8">
+            <p className="text-[#A52828] text-[clamp(2.5rem,6vw,4.5rem)] font-black tracking-[0.08em] leading-none">
+              ONE MORE STEP.
+            </p>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   )
