@@ -1,88 +1,102 @@
+'use client'
+
+import { useState } from 'react'
 import Navigation from '@/components/layout/Navigation'
 import Footer from '@/components/layout/Footer'
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'NOBRK CONTENT — 오늘, 당신에게 필요한 한 문장',
-  description: '매일 아침, 다시 움직이게 하는 한 문장. YouTube Shorts · Instagram · Threads',
-}
 
 const categories = ['ALL', "TODAY'S WORD", 'ONE MORE STEP', 'FOR SOMEONE WHO IS TIRED']
 
 const contentItems = [
-  { tag: "Today's Word", headline: '멈추지 마라.\n아직이다.', channel: 'YouTube Shorts', href: '#' },
-  { tag: 'One More Step', headline: '두려움이\n방향을 알려준다.', channel: 'Instagram', href: '#' },
-  { tag: 'For Someone Who Is Tired', headline: '오늘의 고통이\n내일의 연료다.', channel: 'Threads', href: '#' },
-  { tag: "Today's Word", headline: '강해지려고\n버티는 게 아니다.\n버티다 보면\n강해지는 거다.', channel: 'YouTube Shorts', href: '#' },
-  { tag: 'One More Step', headline: '한 번 더.\n딱 한 번만 더.', channel: 'Instagram', href: '#' },
-  { tag: 'For Someone Who Is Tired', headline: '쉬어도 괜찮다.\n멈춘 게 아니니까.', channel: 'Threads', href: '#' },
+  { tag: "TODAY'S WORD", headline: '멈추지 마라.\n아직이다.', channel: 'YouTube Shorts', href: '#' },
+  { tag: 'ONE MORE STEP', headline: '두려움이\n방향을 알려준다.', channel: 'Instagram', href: '#' },
+  { tag: 'FOR SOMEONE WHO IS TIRED', headline: '오늘의 고통이\n내일의 연료다.', channel: 'Threads', href: '#' },
+  { tag: "TODAY'S WORD", headline: '강해지려고\n버티는 게 아니다.\n버티다 보면\n강해지는 거다.', channel: 'YouTube Shorts', href: '#' },
+  { tag: 'ONE MORE STEP', headline: '한 번 더.\n딱 한 번만 더.', channel: 'Instagram', href: '#' },
+  { tag: 'FOR SOMEONE WHO IS TIRED', headline: '쉬어도 괜찮다.\n멈춘 게 아니니까.', channel: 'Threads', href: '#' },
 ]
 
 export default function ContentPage() {
+  const [activeCategory, setActiveCategory] = useState('ALL')
+
+  const filteredItems = activeCategory === 'ALL'
+    ? contentItems
+    : contentItems.filter(item => item.tag === activeCategory)
+
   return (
     <>
       <Navigation />
-      <main className="min-h-screen bg-[#0A0A0A] pt-24 pb-32 px-6 md:px-12">
+      <main className="min-h-screen bg-[#0A0A0A] pt-28 pb-36 px-6 md:px-12">
         <div className="max-w-5xl mx-auto">
 
           {/* Header */}
-          <div className="mb-16 md:mb-24">
-            <p className="text-amber-500/70 text-xs tracking-[0.3em] uppercase mb-4 font-light">
+          <div className="mb-16 md:mb-20">
+            <p className="text-amber-500 text-xs tracking-[0.35em] uppercase mb-4 font-bold">
               NOBRK Content
             </p>
-            <h1 className="text-[clamp(1.8rem,5vw,3.8rem)] font-black text-white leading-[1.2] mb-6 md:whitespace-nowrap">
+            <h1 className="text-[clamp(2rem,5vw,3.8rem)] font-black text-white leading-[1.2] mb-6 md:whitespace-nowrap">
               오늘, 당신에게 필요한 한 문장
             </h1>
-            <p className="text-white/30 text-sm md:text-base font-light max-w-md leading-relaxed">
+            <p className="text-white/70 text-base md:text-lg font-light max-w-lg leading-relaxed">
               매일 아침, 다시 움직이게 하는 한 문장.<br />
-              YouTube Shorts · Instagram · Threads
+              <span className="text-white/40 text-sm">YouTube Shorts · Instagram · Threads</span>
             </p>
           </div>
 
-          {/* Category filter */}
+          {/* Category tabs — 고대비 시인성 강화 */}
           <div className="flex flex-wrap gap-3 mb-12 md:mb-16">
-            {categories.map((cat, i) => (
-              <button
-                key={cat}
-                className={`text-xs tracking-[0.2em] uppercase px-4 py-2 border transition-colors duration-200 ${
-                  i === 0
-                    ? 'border-white/40 text-white'
-                    : 'border-white/10 text-white/30 hover:border-white/30 hover:text-white/60'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`text-xs tracking-[0.2em] uppercase px-5 py-3 border rounded-sm transition-all duration-200 cursor-pointer font-medium ${
+                    isActive
+                      ? 'bg-amber-500 text-black border-amber-500 font-bold shadow-[0_0_20px_rgba(245,158,11,0.25)]'
+                      : 'bg-white/[0.04] border-white/20 text-white/80 hover:border-amber-500/50 hover:text-white hover:bg-white/[0.08]'
+                  }`}
+                >
+                  {cat}
+                </button>
+              )
+            })}
           </div>
 
           {/* Content grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.05]">
-            {contentItems.map((item, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredItems.map((item, i) => (
               <a
                 key={i}
                 href={item.href}
-                className="group bg-[#0A0A0A] p-8 md:p-10 flex flex-col gap-4 hover:bg-[#111111] transition-colors duration-300"
+                className="group bg-[#121212] border border-white/10 hover:border-amber-500/50 p-8 md:p-10 flex flex-col justify-between min-h-[260px] rounded-sm transition-all duration-300 hover:bg-[#181818] hover:-translate-y-1 shadow-lg"
               >
-                <span className="text-amber-500/60 text-[10px] tracking-[0.25em] uppercase font-light">
-                  {item.tag}
-                </span>
-                <p className="text-white font-black text-xl md:text-2xl leading-[1.3] whitespace-pre-line group-hover:text-amber-50 transition-colors duration-300">
-                  {item.headline}
-                </p>
-                <span className="mt-auto text-white/20 text-[10px] tracking-[0.2em] uppercase font-light flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-amber-500/40 inline-block" />
-                  {item.channel}
-                </span>
+                <div>
+                  <span className="inline-block text-amber-400 text-xs tracking-[0.25em] uppercase font-bold mb-4">
+                    {item.tag}
+                  </span>
+                  <p className="text-white font-black text-2xl md:text-3xl leading-[1.3] whitespace-pre-line group-hover:text-amber-300 transition-colors duration-300">
+                    {item.headline}
+                  </p>
+                </div>
+                <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-white/60 text-xs tracking-[0.15em] uppercase font-medium flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" />
+                    {item.channel}
+                  </span>
+                  <span className="text-amber-500 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-bold">
+                    보러가기 →
+                  </span>
+                </div>
               </a>
             ))}
           </div>
 
-          {/* CTA - more coming */}
-          <div className="mt-16 text-center border-t border-white/[0.05] pt-16">
-            <p className="text-white/20 text-sm tracking-[0.3em] uppercase font-light mb-4">
+          {/* CTA */}
+          <div className="mt-20 text-center border-t border-white/10 pt-16">
+            <p className="text-white/60 text-sm tracking-[0.3em] uppercase font-light mb-3">
               매일 새로운 콘텐츠가 추가됩니다
             </p>
-            <p className="text-white/10 text-xs tracking-widest uppercase">WE MUST GO ON.</p>
+            <p className="text-amber-500/80 text-xs tracking-widest uppercase font-bold">WE MUST GO ON.</p>
           </div>
         </div>
       </main>
