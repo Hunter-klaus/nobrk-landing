@@ -74,9 +74,10 @@ export default function OneMoreStep() {
           </ScrollReveal>
         </div>
 
+        {/* ONE MORE STEP — 나이키 에어조던 레드 (#CE1141) */}
         <ScrollReveal delay={0.6}>
           <div className="pt-8">
-            <p className="text-[#A52828] text-[clamp(2.5rem,6vw,4.5rem)] font-black tracking-[0.08em] leading-none">
+            <p className="text-[#CE1141] text-[clamp(2.5rem,6vw,4.5rem)] font-black tracking-[0.08em] leading-none select-none drop-shadow-[0_4px_24px_rgba(206,17,65,0.3)]">
               ONE MORE STEP.
             </p>
           </div>
