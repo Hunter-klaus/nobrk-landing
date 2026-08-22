@@ -1,28 +1,45 @@
 'use client'
 
-// NOBRK — SECTION 02: QUESTION
-// 검은 배경에서 따뜻한 흰색으로 전환
-// 공감 메시지를 순차적으로 보여줍니다
-
+import Image from 'next/image'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
 const situationLines = [
   '일이 잘 풀리지 않을 때.',
-  '사랑하는 사람과 멀어졌을 때.',
-  '오랫동안 준비했던 일이 실패했을 때.',
+  '실패했을 때.',
   '나만 뒤처진 것 같을 때.',
-  '아무도 내 마음을 알아주지 않을 때.',
+  '사랑하는 사람과 멀어졌을 때.',
+  '아무것도 될 것 같지 않을 때.',
 ]
 
 export default function Question() {
   return (
     <section
       id="section-02"
-      className="relative py-32 md:py-48 px-6 md:px-12 bg-gradient-to-b from-[#0A0A0A] via-[#111111] to-[#F5F0EB] overflow-hidden"
+      className="relative py-32 md:py-48 px-6 md:px-12 overflow-hidden"
       aria-label="우리는 왜 계속 가야 할까요"
     >
-      <div className="max-w-4xl mx-auto">
-        {/* 메인 질문 */}
+      {/* 시네마틱 배경 — 비 맞은 도시 밤거리 */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <Image
+          src="/question_bg.jpg"
+          alt=""
+          fill
+          quality={80}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        {/* 상단 완전 어둡게 → 중단 살짝 보이게 → 하단 warm-white로 전환 */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.80) 40%, rgba(10,10,10,0.92) 70%, rgba(245,240,235,0.97) 100%)',
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-4xl mx-auto">
+        {/* 큰 질문 */}
         <ScrollReveal>
           <h2 className="text-[clamp(2rem,6vw,4.5rem)] font-black text-white leading-[1.1] mb-12">
             우리는 왜
@@ -31,7 +48,7 @@ export default function Question() {
           </h2>
         </ScrollReveal>
 
-        {/* 도입부 */}
+        {/* 서브 */}
         <ScrollReveal delay={0.2}>
           <p className="text-white/50 text-lg md:text-xl font-light leading-relaxed mb-16 max-w-lg">
             누구에게나
@@ -40,18 +57,18 @@ export default function Question() {
           </p>
         </ScrollReveal>
 
-        {/* 상황별 문장들 */}
+        {/* 상황 라인 */}
         <div className="flex flex-col gap-6 mb-24">
           {situationLines.map((line, i) => (
             <ScrollReveal key={i} delay={0.1 * i + 0.3}>
-              <p className="text-white/40 text-base md:text-lg font-light pl-4 border-l border-white/10">
+              <p className="text-white/35 text-base md:text-lg font-light pl-4 border-l border-white/10">
                 {line}
               </p>
             </ScrollReveal>
           ))}
         </div>
 
-        {/* 전환 구간 — 따뜻한 배경으로 넘어가는 지점 */}
+        {/* 전환 — warm white 위 dark text */}
         <div className="mt-8">
           <ScrollReveal delay={0.1}>
             <h3 className="text-[clamp(1.5rem,4vw,3rem)] font-black text-[#1A1A1A] leading-tight mb-12">
