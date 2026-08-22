@@ -30,8 +30,8 @@ export default function ContentPage() {
             <p className="text-amber-500/70 text-xs tracking-[0.3em] uppercase mb-4 font-light">
               NOBRK Content
             </p>
-            <h1 className="text-[clamp(2rem,6vw,4.5rem)] font-black text-white leading-[1.1] mb-6">
-              오늘, 당신에게<br />필요한 한 문장
+            <h1 className="text-[clamp(1.8rem,5vw,3.8rem)] font-black text-white leading-[1.2] mb-6 md:whitespace-nowrap">
+              오늘, 당신에게 필요한 한 문장
             </h1>
             <p className="text-white/30 text-sm md:text-base font-light max-w-md leading-relaxed">
               매일 아침, 다시 움직이게 하는 한 문장.<br />
