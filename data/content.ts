@@ -54,7 +54,7 @@ export const contentCards: ContentCard[] = [
 // 콘텐츠 카테고리 색상 매핑
 export const categoryColors: Record<string, string> = {
   'FOR SOMEONE WHO IS TIRED': '#D4601A',
-  'ONE MORE STEP': '#888888',
+  'ONE MORE STEP': '#E10600',
   'NOBRK THOUGHT': '#FFFFFF',
   'FOR YOU': '#D4601A',
 }

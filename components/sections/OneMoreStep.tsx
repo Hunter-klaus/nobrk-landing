@@ -1,87 +1,143 @@
 'use client'
 
-import Image from 'next/image'
-import ScrollReveal from '@/components/ui/ScrollReveal'
+// NOBRK — SECTION 05: ONE MORE STEP
+// 검은 배경
+// FALL → REST → BREATHE → TRY AGAIN → GO ON
+// 시퀀스 및 오리지널 나이키 조던 레드(#E10600) 단색 ONE MORE STEP.
+
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+
+const steps = [
+  { word: 'FALL', ko: '넘어져도', opacity: 'text-white/25' },
+  { word: 'REST', ko: '쉬어도', opacity: 'text-white/35' },
+  { word: 'BREATHE', ko: '숨 고르고', opacity: 'text-white/50' },
+  { word: 'TRY AGAIN', ko: '다시 시작해도', opacity: 'text-white/70' },
+  { word: 'GO ON', ko: null, opacity: 'text-white', isFinal: true },
+]
+
+function StepWord({
+  word,
+  ko,
+  opacity,
+  isFinal,
+  index,
+}: {
+  word: string
+  ko: string | null
+  opacity: string
+  isFinal?: boolean
+  index: number
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-100px' })
+
+  return (
+    <motion.div
+      ref={ref}
+      className={`flex flex-col ${isFinal ? 'items-start' : 'items-start'} gap-2`}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <span
+        className={`font-black leading-none tracking-[-0.02em] ${opacity} ${
+          isFinal
+            ? 'text-[clamp(3rem,12vw,9rem)] text-white'
+            : 'text-[clamp(2rem,7vw,5.5rem)]'
+        }`}
+      >
+        {word}
+      </span>
+      {ko && (
+        <span className="text-white/20 text-sm md:text-base font-light tracking-wider pl-1">
+          {ko}
+        </span>
+      )}
+    </motion.div>
+  )
+}
 
 export default function OneMoreStep() {
   return (
     <section
-      id="section-03"
-      className="relative py-32 md:py-48 px-6 md:px-12 overflow-hidden"
-      aria-label="03. NOBRK 핵심"
+      className="relative py-32 md:py-48 px-6 md:px-12 bg-[#0A0A0A] overflow-hidden"
+      aria-label="다시 한 걸음"
     >
-      {/* 시네마틱 배경 — 위로 향하는 계단 */}
-      <div className="absolute inset-0 z-0" aria-hidden="true">
-        <Image
-          src="/onemorestep_bg.jpg"
-          alt=""
-          fill
-          quality={80}
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'rgba(10,10,10,0.88)',
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at 50% 50%, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.95) 75%)',
-          }}
-        />
+      {/* 배경 그라디언트 */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-[#E10600]/[0.03] blur-[140px]" />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto">
-        <ScrollReveal>
-          <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-6 font-light">
-            03 / CORE
-          </p>
-          <blockquote className="mb-14">
-            <p className="text-[clamp(1.5rem,4vw,2.8rem)] font-light text-white leading-[1.35]">
-              "당신에게 필요한 건<br />
-              <span className="text-white/60">더 큰 힘이 아닐지도 모릅니다."</span>
-            </p>
-          </blockquote>
-        </ScrollReveal>
-
-        <ScrollReveal delay={0.2}>
-          <p className="text-white/50 text-base md:text-lg font-light mb-8">
-            어쩌면 필요한 건
-          </p>
-          <h3 className="text-[clamp(2.5rem,7vw,5rem)] font-black text-amber-500 leading-none mb-12">
-            딱 한 걸음.
-          </h3>
-        </ScrollReveal>
-
-        <div className="flex flex-col gap-4 mb-14">
-          <ScrollReveal delay={0.3}>
-            <p className="text-white/60 text-base md:text-lg font-light pl-4 border-l border-white/20">
-              오늘 해야 할 일 하나.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={0.4}>
-            <p className="text-white/60 text-base md:text-lg font-light pl-4 border-l border-white/20">
-              오늘 지켜야 할 약속 하나.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={0.5}>
-            <p className="text-white/60 text-base md:text-lg font-light pl-4 border-l border-white/20">
-              오늘 포기하지 않는 것 하나.
-            </p>
-          </ScrollReveal>
+      <div className="max-w-5xl mx-auto">
+        {/* 상단 라벨 */}
+        <div className="mb-16 md:mb-24">
+          <motion.p
+            className="text-xs tracking-[0.35em] uppercase font-bold"
+            style={{ color: '#E10600' }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            ONE MORE STEP
+          </motion.p>
         </div>
 
-        {/* ONE MORE STEP — 나이키 에어조던 레드 (#CE1141) */}
-        <ScrollReveal delay={0.6}>
-          <div className="pt-8">
-            <p className="text-[#CE1141] text-[clamp(2.5rem,6vw,4.5rem)] font-black tracking-[0.08em] leading-none select-none drop-shadow-[0_4px_24px_rgba(206,17,65,0.3)]">
-              ONE MORE STEP.
-            </p>
-          </div>
-        </ScrollReveal>
+        {/* 단어 시퀀스 */}
+        <div className="flex flex-col gap-12 md:gap-16 mb-8">
+          {steps.slice(0, -1).map((step, i) => (
+            <div key={step.word}>
+              <StepWord {...step} index={i} />
+              {/* 화살표 구분자 */}
+              <motion.div
+                className="mt-6 text-white/10 text-sm font-light"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                aria-hidden="true"
+              >
+                ↓
+              </motion.div>
+            </div>
+          ))}
+        </div>
+
+        {/* 최종 GO ON */}
+        <div className="flex flex-col items-start gap-2 mt-8">
+          <StepWord {...steps[steps.length - 1]} index={4} />
+          <motion.p
+            className="text-amber-500/60 text-sm tracking-widest mt-4 font-light mb-16"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+          >
+            WE MUST GO ON.
+          </motion.p>
+        </div>
+
+        {/* 시그니처 대형 RED 타이틀 ONE MORE STEP. (마젠타/분홍빛 제거, 조던 레드 #E10600 단색 적용) */}
+        <motion.div
+          className="pt-12 border-t border-white/[0.06]"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9 }}
+        >
+          <h2
+            className="font-black leading-none tracking-tighter select-none"
+            style={{
+              fontSize: 'clamp(3rem, 11vw, 8.5rem)',
+              color: '#E10600',
+              wordBreak: 'keep-all',
+              overflowWrap: 'break-word',
+            }}
+          >
+            ONE MORE STEP.
+          </h2>
+        </motion.div>
       </div>
     </section>
   )
