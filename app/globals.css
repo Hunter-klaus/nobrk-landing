@@ -46,11 +46,8 @@ p, span, blockquote, li, a, button, label {
   overflow-wrap: break-word;
 }
 
-/* 섹션 전체를 감싸는 div도 가로 초과 방지 */
-section, main, article, aside {
-  overflow-x: hidden;
-  max-width: 100%;
-}
+/* ⚠️ section에 overflow-x: hidden을 적용하면 absolute 배경 요소가 잘립니다.
+   가로 스크롤 방지는 body의 overflow-x: hidden으로 충분합니다. */
 
 /* 스크롤바 스타일 */
 ::-webkit-scrollbar {
