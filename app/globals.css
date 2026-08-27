@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
-/* NOBRK - Global Styles */
+/* NOBRK — 글로벌 스타일 */
+/* Pretendard 폰트는 layout.tsx의 <link> 태그로 로드됩니다 */
 
-/* CSS Variables - Brand Color System: BLACK + ORANGE + RED */
+/* CSS 변수 — 브랜드 컬러 시스템 */
 :root {
   --color-black: #0A0A0A;
   --color-warm-white: #F5F0EB;
   --color-charcoal: #1A1A1A;
   --color-amber: #D4601A;
   --color-amber-light: #E87A35;
-  --color-red: #8B1A1A;
-  --color-red-accent: #A52828;
   --color-gray: #888888;
   --color-gray-light: #AAAAAA;
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-dark: rgba(0, 0, 0, 0.08);
 }
 
+/* 기본 리셋 */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -35,22 +35,67 @@ body {
   line-height: 1.6;
 }
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--color-black); }
-::-webkit-scrollbar-thumb { background: var(--color-gray); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-amber); }
+/* ─── 한국어 텍스트 줄바꿈 전역 규칙 ─────────────────────────────
+   word-break: keep-all  → 단어 중간에서 줄바꿈 금지 (가장 중요)
+   overflow-wrap: break-word → 컨테이너 초과 시만 강제 줄바꿈 허용
+   모든 텍스트 요소에 적용해 "모릅니/다", "있습니/다" 현상 방지
+─────────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6,
+p, span, blockquote, li, a, button, label {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
 
-::selection { background: var(--color-amber); color: #ffffff; }
+/* 섹션 전체를 감싸는 div도 가로 초과 방지 */
+section, main, article, aside {
+  overflow-x: hidden;
+  max-width: 100%;
+}
 
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-amber);
+}
+
+/* 선택 영역 스타일 */
+::selection {
+  background: var(--color-amber);
+  color: #ffffff;
+}
+
+/* 포커스 스타일 — 접근성 */
 :focus-visible {
   outline: 2px solid var(--color-amber);
   outline-offset: 4px;
   border-radius: 2px;
 }
 
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; height: auto; }
+/* 링크 기본 스타일 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
+/* 이미지 최적화 */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Grain 텍스처 효과 */
 @keyframes grain {
   0%, 100% { transform: translate(0, 0); }
   10% { transform: translate(-2%, -3%); }
@@ -77,21 +122,45 @@ img { max-width: 100%; height: auto; }
   mix-blend-mode: overlay;
 }
 
+/* 느린 빛 애니메이션 — Hero 섹션 */
 @keyframes ambientLight {
-  0%, 100% { opacity: 0.03; transform: scale(1) translate(0, 0); }
-  33% { opacity: 0.06; transform: scale(1.1) translate(2%, -2%); }
-  66% { opacity: 0.04; transform: scale(0.95) translate(-1%, 3%); }
+  0%, 100% {
+    opacity: 0.03;
+    transform: scale(1) translate(0, 0);
+  }
+  33% {
+    opacity: 0.06;
+    transform: scale(1.1) translate(2%, -2%);
+  }
+  66% {
+    opacity: 0.04;
+    transform: scale(0.95) translate(-1%, 3%);
+  }
 }
 
-.ambient-light { animation: ambientLight 12s ease-in-out infinite; }
+.ambient-light {
+  animation: ambientLight 12s ease-in-out infinite;
+}
 
+/* 텍스트 reveal 애니메이션 */
 @keyframes textReveal {
-  from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
-.text-reveal { animation: textReveal 1s ease forwards; }
+.text-reveal {
+  animation: textReveal 1s ease forwards;
+}
 
+/* 구분선 */
 .section-divider {
   width: 1px;
   height: 60px;
@@ -99,9 +168,16 @@ img { max-width: 100%; height: auto; }
   margin: 0 auto;
 }
 
-.letter-spacing-wider { letter-spacing: 0.25em; }
-.letter-spacing-widest { letter-spacing: 0.4em; }
+/* 커스텀 유틸리티 */
+.letter-spacing-wider {
+  letter-spacing: 0.25em;
+}
 
+.letter-spacing-widest {
+  letter-spacing: 0.4em;
+}
+
+/* 접근성 — 스크린리더 전용 */
 .sr-only {
   position: absolute;
   width: 1px;

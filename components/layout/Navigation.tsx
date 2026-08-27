@@ -1,181 +1,216 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+// NOBRK — 상단 네비게이션
+// 스크롤에 따라 자연스럽게 변화합니다
+// 모바일에서는 햄버거 메뉴를 사용합니다
+// 미구현 메뉴 클릭 시 COMING SOON 토스트 표시
+
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+// href가 있으면 해당 섹션으로 스크롤, comingSoon이면 토스트 표시
 const navItems = [
-  { label: 'OUR STORY', href: '/' },
-  { label: 'CONTENT',   href: '/content' },
-  { label: 'COMMUNITY', href: '/community' },
-  { label: 'PRODUCT',   href: '/product' },
+  { label: 'OUR STORY', href: '#section-02', comingSoon: false },
+  { label: 'CONTENT', href: '#section-06', comingSoon: false },
+  { label: 'COMMUNITY', href: '#section-08', comingSoon: false },
 ]
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const pathname = usePathname()
-  const router = useRouter()
+  const [toast, setToast] = useState<string | null>(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 60)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    setMenuOpen(false)
-    window.scrollTo(0, 0)
-  }, [pathname])
-
+  // 메뉴 열릴 때 스크롤 방지
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
     }
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [menuOpen])
 
-  const handleNav = (href: string) => {
-    setMenuOpen(false)
-    if (pathname === href) {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    } else {
-      router.push(href)
-    }
-  }
+  // COMING SOON 토스트 표시
+  const showToast = useCallback((label: string) => {
+    setToast(label)
+    setTimeout(() => setToast(null), 2500)
+  }, [])
+
+  const handleNavClick = useCallback(
+    (href: string, comingSoon: boolean, label: string) => {
+      setMenuOpen(false)
+      if (comingSoon) {
+        showToast(label)
+        return
+      }
+      // 약간의 딜레이: 모바일 메뉴 닫힌 후 스크롤
+      setTimeout(() => {
+        const target = document.querySelector(href)
+        if (target) target.scrollIntoView({ behavior: 'smooth' })
+      }, 50)
+    },
+    [showToast]
+  )
 
   return (
     <>
       <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled || menuOpen
-            ? 'bg-black/90 backdrop-blur-md border-b border-white/[0.06]'
-            : 'bg-gradient-to-b from-black/80 via-black/30 to-transparent'
-        }`}
-        initial={{ opacity: 0, y: -10 }}
+        className="fixed top-0 left-0 right-0 z-50"
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.8, delay: 0.5 }}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 md:h-20 flex items-center justify-between">
-          {/* Logo */}
-          <button
-            onClick={() => handleNav('/')}
-            className="text-white font-black text-sm tracking-[0.35em] uppercase hover:text-white/80 transition-colors duration-300 cursor-pointer"
-            aria-label="NOBRK 메인으로"
+        <div
+          className={`px-6 md:px-12 py-4 md:py-5 flex items-center justify-between transition-all duration-500 ${
+            scrolled
+              ? 'bg-black/80 backdrop-blur-md border-b border-white/[0.05]'
+              : 'bg-transparent'
+          }`}
+        >
+          {/* 로고 */}
+          <a
+            href="#"
+            className="text-white font-black text-xl tracking-[0.2em] hover:text-amber-500 transition-colors duration-300"
+            onClick={(e) => {
+              e.preventDefault()
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            aria-label="NOBRK 홈으로"
           >
             NOBRK
-          </button>
+          </a>
 
-          {/* Desktop nav — 모던 미니멀 스타일 (Active: 크리스프 화이트 + 섬세한 언더라인) */}
-          <nav className="hidden md:flex items-center gap-9" aria-label="메인 내비게이션">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href
-              return (
-                <button
-                  key={item.label}
-                  onClick={() => handleNav(item.href)}
-                  className={`relative text-xs tracking-[0.25em] uppercase transition-all duration-200 cursor-pointer py-1.5 ${
-                    isActive
-                      ? 'text-white font-bold'
-                      : 'text-white/40 hover:text-white/90 font-light'
-                  }`}
-                >
-                  {item.label}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeNavIndicator"
-                      className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-white"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </button>
-              )
-            })}
+          {/* 데스크톱 메뉴 */}
+          <nav className="hidden md:flex items-center gap-8" aria-label="주요 메뉴">
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => handleNavClick(item.href, item.comingSoon, item.label)}
+                className={`text-xs tracking-[0.2em] uppercase transition-colors duration-300 cursor-pointer ${
+                  item.comingSoon
+                    ? 'text-white/25 hover:text-white/40'
+                    : 'text-white/50 hover:text-white'
+                }`}
+                aria-label={item.comingSoon ? `${item.label} — 준비 중` : item.label}
+              >
+                {item.label}
+                {item.comingSoon && (
+                  <span className="ml-1.5 text-[8px] text-white/20 align-top tracking-wider">SOON</span>
+                )}
+              </button>
+            ))}
           </nav>
 
-          {/* Desktop CTA — 절제된 모노크롬 테두리 */}
-          <div className="hidden md:block">
-            <button
-              onClick={() => handleNav('/community')}
-              className="text-xs tracking-[0.25em] uppercase text-white/70 hover:text-white font-medium transition-colors duration-300 border border-white/20 hover:border-white/50 px-4 py-2 rounded-sm bg-white/[0.03] cursor-pointer"
-            >
-              KEEP GOING →
-            </button>
-          </div>
-
-          {/* Mobile hamburger */}
+          {/* 데스크톱 CTA */}
           <button
-            className="md:hidden flex flex-col gap-[6px] p-2 cursor-pointer z-50"
+            onClick={() => handleNavClick('#section-08', false, 'COMMUNITY')}
+            className="hidden md:flex items-center gap-2 text-white/70 hover:text-white text-xs tracking-[0.2em] uppercase transition-colors duration-300 cursor-pointer group"
+            aria-label="커뮤니티로 이동"
+          >
+            <span>KEEP GOING</span>
+            <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+          </button>
+
+          {/* 모바일 햄버거 버튼 */}
+          <button
+            className="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? '메뉴 닫기' : '메뉴 열기'}
             aria-expanded={menuOpen}
           >
             <motion.span
-              className="w-6 h-[1.5px] bg-white block"
-              animate={menuOpen ? { rotate: 45, y: 7.5 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.25 }}
+              className="w-6 h-[1px] bg-white block"
+              animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3 }}
             />
             <motion.span
-              className="w-6 h-[1.5px] bg-white block"
+              className="w-6 h-[1px] bg-white block"
               animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.3 }}
             />
             <motion.span
-              className="w-6 h-[1.5px] bg-white block"
-              animate={menuOpen ? { rotate: -45, y: -7.5 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.25 }}
+              className="w-6 h-[1px] bg-white block"
+              animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3 }}
             />
           </button>
         </div>
       </motion.header>
 
-      {/* Mobile fullscreen menu */}
+      {/* 모바일 풀스크린 메뉴 */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-black/98 backdrop-blur-xl flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 bg-black flex flex-col items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.3 }}
           >
-            <nav className="flex flex-col items-center gap-8 text-center" aria-label="모바일 내비게이션">
-              {navItems.map((item, i) => {
-                const isActive = pathname === item.href
-                return (
-                  <motion.div
-                    key={item.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 + 0.05 }}
-                  >
-                    <button
-                      onClick={() => handleNav(item.href)}
-                      className={`text-2xl tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer ${
-                        isActive ? 'text-white font-bold border-b border-white pb-1' : 'text-white/40 hover:text-white font-light'
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  </motion.div>
-                )
-              })}
-              <motion.div
+            <nav className="flex flex-col items-center gap-8" aria-label="모바일 메뉴">
+              {navItems.map((item, i) => (
+                <motion.button
+                  key={item.label}
+                  onClick={() => handleNavClick(item.href, item.comingSoon, item.label)}
+                  className={`text-2xl font-light tracking-[0.3em] uppercase cursor-pointer transition-colors duration-300 ${
+                    item.comingSoon
+                      ? 'text-white/20'
+                      : 'text-white/60 hover:text-white'
+                  }`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 + 0.1 }}
+                >
+                  {item.label}
+                  {item.comingSoon && (
+                    <span className="block text-[10px] text-white/15 tracking-[0.4em] mt-1 font-light">
+                      COMING SOON
+                    </span>
+                  )}
+                </motion.button>
+              ))}
+              <motion.button
+                onClick={() => handleNavClick('#section-08', false, 'COMMUNITY')}
+                className="mt-8 text-amber-500 text-sm tracking-[0.3em] uppercase cursor-pointer"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="mt-8"
+                transition={{ delay: 0.4 }}
               >
-                <button
-                  onClick={() => handleNav('/community')}
-                  className="border border-white/30 text-white font-medium text-xs tracking-[0.3em] uppercase px-8 py-3 rounded-sm cursor-pointer hover:bg-white hover:text-black transition-colors duration-300"
-                >
-                  KEEP GOING →
-                </button>
-              </motion.div>
+                KEEP GOING →
+              </motion.button>
             </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* COMING SOON 토스트 */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            className="fixed bottom-8 left-1/2 z-[9998] -translate-x-1/2"
+            initial={{ opacity: 0, y: 16, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.97 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            role="status"
+            aria-live="polite"
+          >
+            <div className="px-6 py-3 bg-[#1A1A1A] border border-white/10 backdrop-blur-sm flex items-center gap-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" aria-hidden="true" />
+              <span className="text-white/70 text-xs tracking-[0.2em] uppercase whitespace-nowrap">
+                {toast} — 곧 공개됩니다
+              </span>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

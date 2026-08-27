@@ -1,83 +1,84 @@
 'use client'
 
-import Image from 'next/image'
-import { motion } from 'framer-motion'
-import ScrollReveal from '@/components/ui/ScrollReveal'
+// NOBRK — SECTION 12: FINAL
+// 마지막 섹션 — 검은 배경, 최소한의 요소
+// 모바일 완전 중앙 정렬 + 텍스트 잘림 방지
 
-const reasons = [
-  '완벽하지 않아도...',
-  '늦어도...',
-  '두려워도...',
-  '넘어져도...',
-]
+import { motion } from 'framer-motion'
 
 export default function FinalSection() {
   return (
     <section
-      id="section-06"
-      className="relative min-h-screen flex flex-col items-center justify-center py-32 px-6 bg-[#0A0A0A] overflow-hidden"
-      aria-label="06. NOBRK 결론"
+      className="relative min-h-screen flex flex-col items-center justify-center py-32 bg-[#0A0A0A] overflow-hidden"
+      aria-label="NOBRK 마지막 메시지"
     >
-      {/* 시네마틱 배경 */}
-      <div className="absolute inset-0 z-0" aria-hidden="true">
-        <Image
-          src="/final_bg.jpg"
-          alt=""
-          fill
-          quality={85}
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(to bottom, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.60) 50%, rgba(10,10,10,0.95) 100%)',
-          }}
-        />
+      {/* 배경 앰비언트 */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="ambient-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-amber-700/[0.04] blur-[100px]" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center px-4">
-        {/* 아직 끝나지 않았으니까요. */}
-        <ScrollReveal>
-          <h2 className="text-[clamp(2.2rem,6vw,4.5rem)] font-black text-white leading-tight mb-14">
-            아직 끝나지 않았으니까요.
-          </h2>
-        </ScrollReveal>
+      {/* 콘텐츠 래퍼 — w-full + px로 가로 100% 보장 */}
+      <div className="relative z-10 w-full px-6 md:px-12 flex flex-col items-center text-center">
 
-        {/* 4가지 조건 — 테두리 없이 점점점으로 감성적인 연결 */}
-        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 mb-16">
-          {reasons.map((reason, i) => (
-            <ScrollReveal key={i} delay={0.15 * i}>
-              <span className="text-white/45 text-base md:text-xl font-light tracking-widest">
-                {reason}
-              </span>
-            </ScrollReveal>
-          ))}
-        </div>
-
-        {/* 다시 일어나 한 걸음 더 */}
-        <ScrollReveal delay={0.6}>
-          <p className="text-white/70 text-lg md:text-2xl font-light mb-10 tracking-wide">
-            다시 일어나 한 걸음 더.
-          </p>
-        </ScrollReveal>
-
-        {/* WE MUST GO ON. — 줄바꿈 없이 한 줄로 유지 */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+        {/* NOBRK */}
+        <motion.h2
+          className="font-black text-white leading-none mb-6 select-none"
+          style={{
+            fontSize: 'clamp(3.5rem, 16vw, 13rem)',
+            letterSpacing: '0.05em',
+            wordBreak: 'keep-all',
+          }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="mt-4 mb-16"
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-amber-500 text-[clamp(2rem,6.5vw,5.5rem)] font-black tracking-[0.08em] uppercase leading-none whitespace-nowrap">
-            WE MUST GO ON.
-          </p>
-        </motion.div>
+          NOBRK
+        </motion.h2>
+
+        {/* 슬로건 — 모바일에서 잘리지 않도록 whitespace-nowrap 제거, 충분한 padding */}
+        <motion.p
+          className="text-white/40 text-xs md:text-sm tracking-[0.4em] uppercase font-light mb-16 w-full"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.4 }}
+        >
+          WE MUST GO ON.
+        </motion.p>
 
         {/* 구분선 */}
-        <div className="w-[1px] h-12 bg-gradient-to-b from-white/20 to-transparent mx-auto" aria-hidden="true" />
+        <motion.div
+          className="w-[1px] h-16 bg-gradient-to-b from-white/20 to-transparent mx-auto mb-12"
+          initial={{ opacity: 0, scaleY: 0 }}
+          whileInView={{ opacity: 1, scaleY: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          aria-hidden="true"
+        />
+
+        {/* 마지막 메시지 */}
+        <motion.p
+          className="text-white/40 text-base md:text-lg font-light tracking-wide mb-4 w-full"
+          style={{ wordBreak: 'keep-all' }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.9 }}
+        >
+          오늘도 여기까지 왔으니까.
+        </motion.p>
+
+        <motion.p
+          className="text-amber-500/70 text-sm md:text-base font-light tracking-[0.15em] w-full"
+          style={{ wordBreak: 'keep-all' }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 1.2 }}
+        >
+          내일, 한 걸음 더.
+        </motion.p>
       </div>
     </section>
   )
