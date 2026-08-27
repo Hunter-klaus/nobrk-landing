@@ -2,7 +2,7 @@
 
 // NOBRK — SECTION 04: PHILOSOPHY
 // 브랜드 핵심 철학 — "나를 구하는 가장 빠른 길"
-// 따뜻한 흰색에서 차콜로 전환
+// 어두운 톤앤매너 유지
 
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
@@ -10,16 +10,16 @@ export default function Philosophy() {
   return (
     <section
       id="section-04"
-      className="relative py-32 md:py-48 px-6 md:px-12 bg-gradient-to-b from-[#F5F0EB] to-[#1A1A1A] overflow-hidden"
+      className="relative py-32 md:py-48 px-6 md:px-12 bg-[#0A0A0A] overflow-hidden"
       aria-label="NOBRK 브랜드 철학"
     >
       <div className="max-w-4xl mx-auto">
         {/* 섹션 제목 */}
         <ScrollReveal>
-          <p className="text-[#888888] text-xs tracking-[0.3em] uppercase mb-8 font-light">
+          <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-8 font-light">
             NOBRK Philosophy
           </p>
-          <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-black text-[#1A1A1A] leading-tight mb-20">
+          <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-black text-white leading-tight mb-20">
             우리는 혼자 가는
             <br />
             브랜드가 아닙니다.
@@ -43,6 +43,9 @@ export default function Philosophy() {
                 나를 구하는 가장 빠른 길은
                 <br />
                 <span className="font-black text-amber-500">남을 구하려 애쓰는 길이다.</span>
+              </p>
+              <p className="text-white/40 text-xs md:text-sm font-light mt-4 tracking-wider">
+                - 『그리스인 조르바』에서...
               </p>
             </blockquote>
           </div>
