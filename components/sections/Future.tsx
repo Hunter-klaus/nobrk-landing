@@ -53,7 +53,9 @@ export default function Future() {
               <p className="text-white/60 text-base font-light leading-[2]">
                 언젠가는
                 <br />
-                우리의 일상 속 작은 물건과 경험이 될 것입니다.
+                우리의 일상 속 작은 물건과
+                <br />
+                경험이 될 것입니다.
               </p>
             </ScrollReveal>
           </div>
