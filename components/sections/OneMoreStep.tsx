@@ -1,11 +1,11 @@
 'use client'
 
 // NOBRK — SECTION 05: ONE MORE STEP
-// 검은 배경
-// FALL → REST → BREATHE → TRY AGAIN → GO ON
-// 시퀀스 및 오리지널 나이키 조던 레드(#E10600) 단색 ONE MORE STEP.
+// 시네마틱 배경 + FALL → REST → BREATHE → TRY AGAIN → GO ON
+// 한걸음. 한걸음. 뚜벅...뚜벅... + 나이키 조던 레드(#E10600) ONE MORE STEP.
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 
 const steps = [
@@ -64,12 +64,36 @@ export default function OneMoreStep() {
       className="relative py-32 md:py-48 px-6 md:px-12 bg-[#0A0A0A] overflow-hidden"
       aria-label="다시 한 걸음"
     >
+      {/* ── 시네마틱 배경 이미지 ── */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <Image
+          src="/onemorestep_bg.jpg"
+          alt=""
+          fill
+          quality={80}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'rgba(10,10,10,0.90)',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse at 50% 50%, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.95) 75%)',
+          }}
+        />
+      </div>
+
       {/* 배경 그라디언트 */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div className="absolute inset-0 pointer-events-none z-[1]" aria-hidden="true">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-[#E10600]/[0.03] blur-[140px]" />
       </div>
 
-      <div className="max-w-5xl mx-auto">
+      <div className="relative z-10 max-w-5xl mx-auto">
         {/* 상단 라벨 */}
         <div className="mb-16 md:mb-24">
           <motion.p
@@ -118,7 +142,7 @@ export default function OneMoreStep() {
           </motion.p>
         </div>
 
-        {/* 시그니처 대형 RED 타이틀 ONE MORE STEP. (마젠타/분홍빛 제거, 조던 레드 #E10600 단색 적용) */}
+        {/* 한걸음. 한걸음. 뚜벅...뚜벅... + 대형 레드 ONE MORE STEP 타이틀 */}
         <motion.div
           className="pt-12 border-t border-white/[0.06]"
           initial={{ opacity: 0, y: 20 }}
@@ -126,6 +150,14 @@ export default function OneMoreStep() {
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
         >
+          <div className="mb-6 flex flex-col gap-2">
+            <p className="text-white/70 text-lg md:text-2xl font-light tracking-[0.25em]">
+              한걸음. 한걸음.
+            </p>
+            <p className="text-white/35 text-base md:text-xl font-light tracking-[0.35em] italic">
+              뚜벅...뚜벅...
+            </p>
+          </div>
           <h2
             className="font-black leading-none tracking-tighter select-none"
             style={{
