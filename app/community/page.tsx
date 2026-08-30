@@ -28,8 +28,12 @@ export default function CommunityPage() {
             <p className="text-white/40 text-xs tracking-[0.35em] uppercase mb-4 font-light">
               NOBRK Community
             </p>
-            <h1 className="text-[clamp(1.8rem,4.5vw,3.5rem)] font-black text-white leading-[1.25] mb-6 whitespace-normal lg:whitespace-nowrap">
-              오늘 당신을 계속 가게 하는 것은 무엇인가요?
+            <h1 className="text-[clamp(1.6rem,4.2vw,3.2rem)] font-black text-white leading-[1.3] mb-6">
+              <span className="inline-block">오늘 당신을</span>{' '}
+              <br className="sm:hidden" />
+              <span className="inline-block">계속 가게 하는 것은</span>{' '}
+              <br className="hidden sm:inline" />
+              <span className="inline-block">무엇인가요?</span>
             </h1>
             <p className="text-white/60 text-base md:text-lg font-light">
               당신의 이유가 누군가에게 다시 일어설 힘이 됩니다.
