@@ -115,14 +115,9 @@ export default function OneMoreStep() {
         {/* ── 한걸음.. 한걸음.. / 뚜벅...뚜벅... (넘어져도 한글 텍스트와 동일한 크기) + ONE MORE STEP. ── */}
         <div className="pt-12 border-t border-white/[0.08] mt-8">
           <ScrollReveal delay={0.1}>
-            <div className="mb-4 flex flex-col gap-1.5 pl-1">
-              <p className="text-white/50 text-sm md:text-base font-light tracking-wider">
-                한걸음.. 한걸음..
-              </p>
-              <p className="text-white/35 text-sm md:text-base font-light tracking-wider">
-                뚜벅...뚜벅...
-              </p>
-            </div>
+            <p className="text-white/50 text-sm md:text-base font-light tracking-wider pl-1 mb-4">
+              한 걸음 한 걸음 뚜벅 뚜벅
+            </p>
           </ScrollReveal>
 
           {/* 시그니처 대형 RED 타이틀 ONE MORE STEP. */}
