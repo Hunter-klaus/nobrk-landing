@@ -1,23 +1,23 @@
 'use client'
 
 // NOBRK — 푸터
-// NOBRK SOCIAL 링크 + 저작권
+// NOBRK SOCIAL 링크 (각 채널 고유 브랜드 컬러 호버) + 저작권
 
 const socialLinks = [
   {
     label: 'Instagram',
     href: 'https://www.instagram.com/nobrk.project',
-    shortLabel: 'IG',
+    hoverText: 'group-hover:text-[#E1306C]',
   },
   {
     label: 'YouTube',
     href: 'https://www.youtube.com/@nobrk.project',
-    shortLabel: 'YT',
+    hoverText: 'group-hover:text-[#FF0000]',
   },
   {
     label: 'Threads',
     href: 'https://www.threads.net/@nobrk.project',
-    shortLabel: 'TH',
+    hoverText: 'group-hover:text-white',
   },
 ]
 
@@ -41,7 +41,7 @@ export default function Footer() {
               className="group flex items-center gap-2 text-white/40 hover:text-white transition-colors duration-300"
               aria-label={`NOBRK ${link.label} — 새 탭에서 열림`}
             >
-              <span className="text-xs font-light tracking-[0.15em] group-hover:text-amber-500 transition-colors duration-300">
+              <span className={`text-xs font-light tracking-[0.15em] ${link.hoverText} transition-colors duration-300`}>
                 {link.label}
               </span>
               <span className="text-white/15 text-[10px] group-hover:translate-x-0.5 transition-transform duration-300">
