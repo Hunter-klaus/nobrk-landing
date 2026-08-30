@@ -1,9 +1,10 @@
 'use client'
 
 // NOBRK — SECTION 12: FINAL
-// 마지막 섹션 — 검은 배경, 최소한의 요소
+// 마지막 섹션 — 시네마틱 배경 + 검은 배경, 최소한의 요소
 // 모바일 완전 중앙 정렬 + 텍스트 잘림 방지
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 export default function FinalSection() {
@@ -12,8 +13,27 @@ export default function FinalSection() {
       className="relative min-h-screen flex flex-col items-center justify-center py-32 bg-[#0A0A0A] overflow-hidden"
       aria-label="NOBRK 마지막 메시지"
     >
+      {/* ── 시네마틱 배경 이미지 ── */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <Image
+          src="/final_bg.jpg"
+          alt=""
+          fill
+          quality={85}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.60) 50%, rgba(10,10,10,0.95) 100%)',
+          }}
+        />
+      </div>
+
       {/* 배경 앰비언트 */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div className="absolute inset-0 pointer-events-none z-[1]" aria-hidden="true">
         <div className="ambient-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-amber-700/[0.04] blur-[100px]" />
       </div>
 
