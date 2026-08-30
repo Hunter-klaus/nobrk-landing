@@ -89,13 +89,15 @@ export default function SomeoneWhoHelped() {
         {/* 섹션 헤더 */}
         <div className="mb-16">
           <ScrollReveal>
-            <p className="text-amber-600/60 text-xs tracking-[0.3em] uppercase mb-5 font-light">
-              나를 구하는 가장 빠른 길은 남을 구하려 애쓰는 길이다.
+            <p className="text-amber-600/70 text-xs tracking-[0.15em] mb-5 font-light leading-relaxed">
+              <span className="inline-block">나를 구하는 가장 빠른 길은</span>{' '}
+              <br className="sm:hidden" />
+              <span className="inline-block">남을 구하려 애쓰는 길이다.</span>
             </p>
-            <h2 className="text-[clamp(1.8rem,4.5vw,3.5rem)] font-black text-white leading-[1.15]">
-              당신이 계속 갈 수 있도록
+            <h2 className="text-[clamp(1.45rem,4vw,3.2rem)] font-black text-white leading-[1.3]">
+              <span className="inline-block">당신이 계속 갈 수 있도록</span>
               <br />
-              도와준 사람은 누구인가요?
+              <span className="inline-block">도와준 사람은 누구인가요?</span>
             </h2>
           </ScrollReveal>
         </div>
