@@ -2,7 +2,7 @@
 
 // NOBRK — SECTION 05: ONE MORE STEP
 // 시네마틱 배경 + FALL → REST → BREATHE → TRY AGAIN → GO ON
-// 한걸음. 한걸음. 뚜벅...뚜벅... + 나이키 조던 레드(#E10600) ONE MORE STEP.
+// 한걸음 한걸음 → 뚜벅 뚜벅 (동일한 대형 font-black 타이포그래피) → 나이키 조던 레드(#E10600) ONE MORE STEP.
 
 import { useRef } from 'react'
 import Image from 'next/image'
@@ -93,7 +93,7 @@ export default function OneMoreStep() {
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-[#E10600]/[0.03] blur-[140px]" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         {/* 상단 라벨 */}
         <div className="mb-16 md:mb-24">
           <motion.p
@@ -108,7 +108,7 @@ export default function OneMoreStep() {
           </motion.p>
         </div>
 
-        {/* 단어 시퀀스 */}
+        {/* 단어 시퀀스 (FALL → REST → BREATHE → TRY AGAIN) */}
         <div className="flex flex-col gap-12 md:gap-16 mb-8">
           {steps.slice(0, -1).map((step, i) => (
             <div key={step.word}>
@@ -142,24 +142,49 @@ export default function OneMoreStep() {
           </motion.p>
         </div>
 
-        {/* 한걸음. 한걸음. 뚜벅...뚜벅... + 대형 레드 ONE MORE STEP 타이틀 */}
+        {/* ── 한걸음 한걸음 / 뚜벅 뚜벅 (스텝 단어들과 동일한 대형 font-black 사이즈와 글자체) ── */}
         <motion.div
-          className="pt-12 border-t border-white/[0.06]"
-          initial={{ opacity: 0, y: 20 }}
+          className="pt-16 border-t border-white/[0.06] mb-12 flex flex-col gap-10 md:gap-14"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9 }}
+          transition={{ duration: 0.8 }}
         >
-          <div className="mb-6 flex flex-col gap-2">
-            <p className="text-white/70 text-lg md:text-2xl font-light tracking-[0.25em]">
-              한걸음. 한걸음.
+          <div>
+            <p className="font-black leading-none tracking-[-0.02em] text-white/80 text-[clamp(2rem,7vw,5.5rem)] select-none">
+              한걸음 한걸음
             </p>
-            <p className="text-white/35 text-base md:text-xl font-light tracking-[0.35em] italic">
-              뚜벅...뚜벅...
-            </p>
+            <motion.div
+              className="mt-6 text-white/10 text-sm font-light"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              aria-hidden="true"
+            >
+              ↓
+            </motion.div>
           </div>
+
+          <div>
+            <p className="font-black leading-none tracking-[-0.02em] text-white/60 text-[clamp(2rem,7vw,5.5rem)] select-none">
+              뚜벅 뚜벅
+            </p>
+            <motion.div
+              className="mt-6 text-white/10 text-sm font-light"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              aria-hidden="true"
+            >
+              ↓
+            </motion.div>
+          </div>
+
+          {/* 시그니처 대형 RED 타이틀 ONE MORE STEP. */}
           <h2
-            className="font-black leading-none tracking-tighter select-none"
+            className="font-black leading-none tracking-tighter select-none mt-4"
             style={{
               fontSize: 'clamp(3rem, 11vw, 8.5rem)',
               color: '#E10600',
