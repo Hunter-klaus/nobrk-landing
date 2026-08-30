@@ -92,10 +92,12 @@ export default function CommunityWall() {
             <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-5 font-light">
               Community
             </p>
-            <h2 className="text-[clamp(1.8rem,4.5vw,3.5rem)] font-black text-white leading-[1.15] mb-6">
-              오늘 당신을 계속 가게 하는 것은
+            <h2 className="text-[clamp(1.6rem,4.2vw,3.2rem)] font-black text-white leading-[1.3] mb-6">
+              <span className="inline-block">오늘 당신을</span>{' '}
+              <br className="sm:hidden" />
+              <span className="inline-block">계속 가게 하는 것은</span>{' '}
               <br />
-              무엇인가요?
+              <span className="inline-block">무엇인가요?</span>
             </h2>
           </ScrollReveal>
         </div>
