@@ -1,9 +1,9 @@
 'use client'
 
 // NOBRK — SECTION 01: HERO
-// 첫 화면: 검은 배경, 브랜드명, 조용한 공감의 서두
-// 다른 섹션은 절대 수정하지 않습니다.
+// 첫 화면: 시네마틱 배경 이미지, 브랜드명, 조용한 공감의 서두
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 export default function Hero() {
@@ -17,9 +17,30 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col items-center justify-center bg-[#0A0A0A] overflow-hidden py-20"
       aria-label="NOBRK 히어로 섹션"
     >
+      {/* ── 시네마틱 배경 이미지 + 다크 그라데이션 오버레이 ── */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <Image
+          src="/hero_bg.jpg"
+          alt=""
+          fill
+          priority
+          quality={85}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.65) 50%, rgba(10,10,10,0.30) 100%), ' +
+              'linear-gradient(to right, rgba(10,10,10,0.60) 0%, transparent 60%)',
+          }}
+        />
+      </div>
+
       {/* 배경 앰비언트 라이트 — 극히 미세한 움직임 */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none z-[1]"
         aria-hidden="true"
       >
         {/* 중앙 글로우 */}
@@ -42,22 +63,24 @@ export default function Hero() {
 
         {/* 공감 문장 (지쳤다 → 힘들다 → 누구나 그런 순간이 있다 → 괜찮다) */}
         <motion.div
-          className="flex flex-col items-center gap-3 text-center mb-14"
+          className="flex flex-col items-center gap-2.5 text-center mb-14"
           style={{ wordBreak: 'keep-all', overflowWrap: 'break-word' }}
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
         >
-          <p className="text-white/90 text-lg md:text-2xl font-normal tracking-tight mb-2">
+          <p className="text-white/90 text-lg md:text-2xl font-normal tracking-tight mb-3">
             요즘, 많이 지쳤나요?
           </p>
-          <p className="text-white/50 text-sm md:text-base font-light leading-relaxed">
+          <p className="text-white/60 text-sm md:text-base font-light leading-relaxed">
             <span className="inline-block">열심히 살아왔는데</span>{' '}
             <span className="inline-block">왜 이렇게 힘든지 모를 때가 있습니다.</span>
           </p>
-          <p className="text-white/50 text-sm md:text-base font-light leading-relaxed">
-            <span className="inline-block">아무것도 하기 싫은 날도,</span>{' '}
-            <span className="inline-block">그저 모든 걸 내려놓고 싶은 날도 있습니다.</span>
+          <p className="text-white/60 text-sm md:text-base font-light leading-relaxed">
+            <span className="inline-block">아무것도 하기 싫은 날도 있습니다.</span>
+          </p>
+          <p className="text-white/60 text-sm md:text-base font-light leading-relaxed">
+            <span className="inline-block">그냥 모든 걸 내려놓고 싶은 날도 있습니다.</span>
           </p>
           <p className="text-amber-500/90 text-base md:text-lg font-light mt-4 tracking-wide">
             <span className="inline-block">괜찮습니다.</span>{' '}
