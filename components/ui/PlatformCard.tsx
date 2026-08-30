@@ -1,62 +1,89 @@
 'use client'
 
 // NOBRK — 플랫폼 링크 카드 컴포넌트
-// 섹션 07에서 YouTube, Instagram, Threads 링크를 고유 브랜드 색상과 함께 표시합니다
+// 섹션 07에서 YouTube, Instagram, Threads의 공식 오리지널 로고 및 브랜드 컬러를 표시합니다
 
 import { Platform } from '@/lib/types'
 
+// 플랫폼별 오리지널 브랜드 로고 SVG (공식 컬러 적용)
 function PlatformIcon({ icon }: { icon: string }) {
   if (icon === 'youtube') {
     return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+      <svg width="32" height="32" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        {/* YouTube 공식 레드 라운드 뱃지 */}
+        <rect width="28" height="28" rx="7" fill="#FF0000" />
+        {/* 화이트 플레이 트라이앵글 */}
+        <path d="M19 14L11 9.5V18.5L19 14Z" fill="#FFFFFF" />
       </svg>
     )
   }
   if (icon === 'instagram') {
     return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      <svg width="32" height="32" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <defs>
+          {/* Instagram 공식 선셋 그라디언트 */}
+          <radialGradient id="ig-original-radial" cx="30%" cy="107%" r="130%" fx="30%" fy="107%">
+            <stop offset="0%" stopColor="#fdf497" />
+            <stop offset="5%" stopColor="#fdf497" />
+            <stop offset="45%" stopColor="#fd5949" />
+            <stop offset="60%" stopColor="#d6249f" />
+            <stop offset="90%" stopColor="#285AEB" />
+          </radialGradient>
+        </defs>
+        {/* 그라디언트 스퀘어 */}
+        <rect width="28" height="28" rx="7" fill="url(#ig-original-radial)" />
+        {/* 화이트 카메라 외곽선 */}
+        <rect x="5.5" y="5.5" width="17" height="17" rx="4.5" stroke="#FFFFFF" strokeWidth="1.8" fill="none" />
+        {/* 화이트 렌즈 */}
+        <circle cx="14" cy="14" r="4.2" stroke="#FFFFFF" strokeWidth="1.8" fill="none" />
+        {/* 화이트 플래시 도트 */}
+        <circle cx="19.2" cy="8.8" r="1.1" fill="#FFFFFF" />
       </svg>
     )
   }
   if (icon === 'threads') {
     return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.706-.373-1.274-.75-1.713-.513-.578-1.287-.884-2.298-.907h-.085c-.87 0-2.044.244-2.981 1.696l-1.736-1.137C8.644 3.038 10.413 2.4 12.3 2.4h.106c3.338.074 5.325 2.075 5.325 5.461 0 .203-.009.408-.027.61.811.59 1.352 1.377 1.64 2.339.346 1.13.266 2.51-.235 3.643-1.52 3.443-5.05 5.547-9.923 5.547zm.5-9.912c-.34.019-.648.075-.933.17a3.77 3.77 0 0 0-1.315.79.95.95 0 0 0-.27.74c.022.392.25.823.794 1.176.45.29.997.406 1.574.375.895-.047 1.614-.389 2.137-1.015.505-.6.83-1.453.964-2.537a11.66 11.66 0 0 0-2.95.301z"/>
+      <svg width="32" height="32" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        {/* Threads 공식 다크 뱃지 */}
+        <rect width="28" height="28" rx="7" fill="#181818" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
+        {/* Threads 화이트 @ 로고 */}
+        <path
+          d="M14.22 22h-.01c-3.15-.02-5.57-1.06-7.2-3.09-1.46-1.81-2.21-4.31-2.24-7.44v-.01c.03-3.14.78-5.64 2.22-7.44C8.65 2 11.07.97 14.21.95h.01c2.41.02 4.42.63 5.99 1.84 1.47 1.13 2.51 2.75 3.08 4.79l-1.8.5c-.97-3.48-3.42-5.25-7.29-5.28-2.56.02-4.49.82-5.74 2.38-1.18 1.48-1.79 3.59-1.81 6.3.02 2.71.63 4.82 1.8 6.29 1.25 1.56 3.18 2.37 5.74 2.38 2.3-.02 3.82-.55 5.09-1.79 1.44-1.41 1.42-3.15.96-4.21-.27-.62-.77-1.14-1.43-1.54-.17 1.19-.55 2.15-1.13 2.87-.78.97-1.88 1.49-3.27 1.57-1.05.06-2.07-.19-2.86-.7-.93-.6-1.48-1.53-1.54-2.6-.06-1.04.36-2 1.17-2.7.77-.67 1.86-1.06 3.14-1.13a12.1 12.1 0 0 1 2.65.12c-.11-.62-.33-1.12-.66-1.5-.45-.51-1.12-.78-2.02-.8h-.07c-.76 0-1.8.21-2.61 1.49l-1.52-1C8.67 3.61 10.22 3.05 11.88 3.05h.1c2.93.06 4.67 1.82 4.67 4.79 0 .18-.01.36-.02.53.71.52 1.19 1.21 1.44 2.05.3.99.23 2.2-.21 3.2-1.33 3.02-4.43 4.86-8.71 4.86zm.44-8.7c-.3.02-.57.07-.82.15a3.3 3.3 0 0 0-1.15.69.83.83 0 0 0-.24.65c.02.34.22.72.7.99.39.25.87.35 1.38.33.79-.04 1.42-.34 1.87-.89.44-.53.73-1.28.85-2.23a10.2 10.2 0 0 0-2.59.31z"
+          fill="#FFFFFF"
+        />
       </svg>
     )
   }
   return null
 }
 
-// 각 채널별 고유 브랜드 색상 매핑
+// 각 채널별 고유 브랜드 색상 매핑 (호버 인터랙션)
 const channelStyles: Record<
   string,
   {
     borderHover: string
     bgHover: string
-    iconHover: string
     textHover: string
+    shadowHover: string
   }
 > = {
   youtube: {
-    borderHover: 'hover:border-[#FF0000]/40',
+    borderHover: 'hover:border-[#FF0000]/50',
     bgHover: 'hover:bg-[#FF0000]/[0.03]',
-    iconHover: 'group-hover:text-[#FF0000]',
     textHover: 'group-hover:text-[#FF0000]',
+    shadowHover: 'group-hover:shadow-[0_0_30px_rgba(255,0,0,0.12)]',
   },
   instagram: {
-    borderHover: 'hover:border-[#E1306C]/40',
+    borderHover: 'hover:border-[#E1306C]/50',
     bgHover: 'hover:bg-[#E1306C]/[0.03]',
-    iconHover: 'group-hover:text-[#E1306C]',
     textHover: 'group-hover:text-[#E1306C]',
+    shadowHover: 'group-hover:shadow-[0_0_30px_rgba(225,48,108,0.12)]',
   },
   threads: {
-    borderHover: 'hover:border-white/40',
+    borderHover: 'hover:border-white/50',
     bgHover: 'hover:bg-white/[0.04]',
-    iconHover: 'group-hover:text-white',
     textHover: 'group-hover:text-white',
+    shadowHover: 'group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]',
   },
 }
 
@@ -68,8 +95,8 @@ export default function PlatformCard({ platform }: PlatformCardProps) {
   const styles = channelStyles[platform.icon] || {
     borderHover: 'hover:border-white/25',
     bgHover: 'hover:bg-white/[0.05]',
-    iconHover: 'group-hover:text-white',
     textHover: 'group-hover:text-white',
+    shadowHover: '',
   }
 
   return (
@@ -77,18 +104,21 @@ export default function PlatformCard({ platform }: PlatformCardProps) {
       href={platform.url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group flex flex-col gap-4 p-6 md:p-8 border border-white/10 bg-white/[0.02] transition-all duration-500 rounded-sm ${styles.borderHover} ${styles.bgHover}`}
+      className={`group flex flex-col gap-4 p-6 md:p-8 border border-white/10 bg-white/[0.02] transition-all duration-500 rounded-sm ${styles.borderHover} ${styles.bgHover} ${styles.shadowHover}`}
       aria-label={`${platform.name} 보기 — 새 탭에서 열림`}
     >
-      <div className={`text-white/45 ${styles.iconHover} transition-colors duration-300`}>
+      {/* 공식 오리지널 로고 아이콘 — hover시 살짝 확대 애니메이션 */}
+      <div className="transition-transform duration-300 group-hover:scale-110 shrink-0">
         <PlatformIcon icon={platform.icon} />
       </div>
+
       <div>
         <h3 className={`text-white font-semibold text-lg tracking-wide mb-1 transition-colors duration-300 ${styles.textHover}`}>
           {platform.name}
         </h3>
         <p className="text-white/50 text-sm">{platform.description}</p>
       </div>
+
       <div className={`flex items-center gap-2 text-white/40 ${styles.textHover} text-xs font-medium tracking-widest uppercase transition-colors duration-300 mt-auto`}>
         <span>{platform.name === 'YouTube Shorts' ? 'YouTube 보기' : platform.name === 'Instagram' ? 'Instagram 보기' : 'Threads 보기'}</span>
         <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
