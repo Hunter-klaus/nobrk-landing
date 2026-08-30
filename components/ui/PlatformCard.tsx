@@ -1,11 +1,10 @@
 'use client'
 
 // NOBRK — 플랫폼 링크 카드 컴포넌트
-// 섹션 07에서 YouTube, Instagram, Threads 링크를 표시합니다
+// 섹션 07에서 YouTube, Instagram, Threads 링크를 고유 브랜드 색상과 함께 표시합니다
 
 import { Platform } from '@/lib/types'
 
-// 플랫폼별 아이콘 SVG
 function PlatformIcon({ icon }: { icon: string }) {
   if (icon === 'youtube') {
     return (
@@ -31,29 +30,66 @@ function PlatformIcon({ icon }: { icon: string }) {
   return null
 }
 
+// 각 채널별 고유 브랜드 색상 매핑
+const channelStyles: Record<
+  string,
+  {
+    borderHover: string
+    bgHover: string
+    iconHover: string
+    textHover: string
+  }
+> = {
+  youtube: {
+    borderHover: 'hover:border-[#FF0000]/40',
+    bgHover: 'hover:bg-[#FF0000]/[0.03]',
+    iconHover: 'group-hover:text-[#FF0000]',
+    textHover: 'group-hover:text-[#FF0000]',
+  },
+  instagram: {
+    borderHover: 'hover:border-[#E1306C]/40',
+    bgHover: 'hover:bg-[#E1306C]/[0.03]',
+    iconHover: 'group-hover:text-[#E1306C]',
+    textHover: 'group-hover:text-[#E1306C]',
+  },
+  threads: {
+    borderHover: 'hover:border-white/40',
+    bgHover: 'hover:bg-white/[0.04]',
+    iconHover: 'group-hover:text-white',
+    textHover: 'group-hover:text-white',
+  },
+}
+
 interface PlatformCardProps {
   platform: Platform
 }
 
 export default function PlatformCard({ platform }: PlatformCardProps) {
+  const styles = channelStyles[platform.icon] || {
+    borderHover: 'hover:border-white/25',
+    bgHover: 'hover:bg-white/[0.05]',
+    iconHover: 'group-hover:text-white',
+    textHover: 'group-hover:text-white',
+  }
+
   return (
     <a
       href={platform.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col gap-4 p-6 md:p-8 border border-white/10 hover:border-white/25 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-500 rounded-sm"
+      className={`group flex flex-col gap-4 p-6 md:p-8 border border-white/10 bg-white/[0.02] transition-all duration-500 rounded-sm ${styles.borderHover} ${styles.bgHover}`}
       aria-label={`${platform.name} 보기 — 새 탭에서 열림`}
     >
-      <div className="text-white/50 group-hover:text-amber-500 transition-colors duration-300">
+      <div className={`text-white/45 ${styles.iconHover} transition-colors duration-300`}>
         <PlatformIcon icon={platform.icon} />
       </div>
       <div>
-        <h3 className="text-white font-semibold text-lg tracking-wide mb-1">
+        <h3 className={`text-white font-semibold text-lg tracking-wide mb-1 transition-colors duration-300 ${styles.textHover}`}>
           {platform.name}
         </h3>
         <p className="text-white/50 text-sm">{platform.description}</p>
       </div>
-      <div className="flex items-center gap-2 text-white/40 group-hover:text-amber-500 text-xs font-medium tracking-widest uppercase transition-colors duration-300 mt-auto">
+      <div className={`flex items-center gap-2 text-white/40 ${styles.textHover} text-xs font-medium tracking-widest uppercase transition-colors duration-300 mt-auto`}>
         <span>{platform.name === 'YouTube Shorts' ? 'YouTube 보기' : platform.name === 'Instagram' ? 'Instagram 보기' : 'Threads 보기'}</span>
         <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
       </div>
