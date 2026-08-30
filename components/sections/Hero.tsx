@@ -52,13 +52,16 @@ export default function Hero() {
             요즘, 많이 지쳤나요?
           </p>
           <p className="text-white/50 text-sm md:text-base font-light leading-relaxed">
-            열심히 살아왔는데 왜 이렇게 힘든지 모를 때가 있습니다.
+            <span className="inline-block">열심히 살아왔는데</span>{' '}
+            <span className="inline-block">왜 이렇게 힘든지 모를 때가 있습니다.</span>
           </p>
           <p className="text-white/50 text-sm md:text-base font-light leading-relaxed">
-            아무것도 하기 싫은 날도, 그저 모든 걸 내려놓고 싶은 날도 있습니다.
+            <span className="inline-block">아무것도 하기 싫은 날도,</span>{' '}
+            <span className="inline-block">그저 모든 걸 내려놓고 싶은 날도 있습니다.</span>
           </p>
           <p className="text-amber-500/90 text-base md:text-lg font-light mt-4 tracking-wide">
-            괜찮습니다. 누구에게나 그런 날은 있으니까요.
+            <span className="inline-block">괜찮습니다.</span>{' '}
+            <span className="inline-block">누구에게나 그런 날은 있으니까요.</span>
           </p>
         </motion.div>
 
